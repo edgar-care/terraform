@@ -5,13 +5,6 @@ variable "aws_region" {
     default = "eu-west-3"
 }
 
-variable "aws_profile" {
-    description = "AWS Profile to use"
-
-    type = string
-    default = "edgar.care"
-}
-
 variable "base_lambda_arn" {
     description = "ARN of the GraphQL lambda"
 
