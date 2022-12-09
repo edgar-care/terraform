@@ -40,7 +40,7 @@ module "api_gateway" {
 
     cors_configuration = {
         allow_headers = ["*"]
-        allow_methods = ["*"]
+        allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
         allow_origins = ["*"]
     }
 
