@@ -77,21 +77,27 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "GET /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /m/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
             authorizer_key = "cognito"
         }
 
-        "PUT /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /m/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        "DELETE /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /p/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /p/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
@@ -113,33 +119,34 @@ module "api_gateway" {
         # }
     }
 
-    authorizers= {
-        "cognito" = {
-            authorizer_type  = "JWT"
-            identity_sources = "$request.header.Authorization"
-            name             = "cognito-auth"
-            audience = [aws_cognito_user_pool_client.client.id]
-            issuer   = "https://${aws_cognito_user_pool.pool.endpoint}"
-        }
-    }
+    # authorizers= {
+    #     "cognito" = {
+    #         authorizer_type  = "JWT"
+    #         identity_sources = "$request.header.Authorization"
+    #         name             = "cognito-auth"
+    #         audience = [aws_cognito_user_pool_client.client.id]
+    #         issuer   = "https://${aws_cognito_user_pool.pool.endpoint}"
+    #     }
+    # }
 
-    default_route_settings= {
+    default_route_settings = {
         throttling_burst_limit   = 200
         throttling_rate_limit    = 100
     }
 
 }
-    // authorizer 
-resource "aws_cognito_user_pool" "pool" {
-    name = "api-gateway-pool"
-}
 
-resource "aws_cognito_user_pool_client" "client" {
-    name = "api-gateway"
-    user_pool_id = aws_cognito_user_pool.pool.id
-    explicit_auth_flows = [
-        "ALLOW_USER_PASSWORD_AUTH",
-        "ALLOW_USER_SRP_AUTH",
-        "ALLOW_REFRESH_TOKEN_AUTH"
-    ]
-}
+# authorizer
+# resource "aws_cognito_user_pool" "pool" {
+#     name = "api-gateway-pool"
+# }
+
+# resource "aws_cognito_user_pool_client" "client" {
+#     name = "api-gateway"
+#     user_pool_id = aws_cognito_user_pool.pool.id
+#     explicit_auth_flows = [
+#         "ALLOW_USER_PASSWORD_AUTH",
+#         "ALLOW_USER_SRP_AUTH",
+#         "ALLOW_REFRESH_TOKEN_AUTH"
+#     ]
+# }
