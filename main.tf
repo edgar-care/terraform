@@ -68,7 +68,7 @@ module "api_gateway" {
             lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
             payload_format_version = "2.0"
             timeout_milliseconds   = 12000
-            authorizer_key = "cognito"
+            // authorizer_key = "cognito"
         }
 
         "POST /graphql" = {
@@ -77,46 +77,30 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "POST /d/login" = {
+        "POST /auth/d/login" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
-            authorizer_key = "cognito"
+            // authorizer_key = "cognito"
         }
 
-        "POST /d/register" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-
-        "POST /p/login" = {
+        "POST /auth/d/register" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        "POST /p/register" = {
+        "POST /auth/p/login" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        # "GET /ping" = {
-        #     lambda_arn             = module.ping.lambda_function_arn
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds   = 12000
-        # }
-
-        # "GET /some-route-with-authorizer" = {
-        #   integration_type = "HTTP_PROXY"
-        #   integration_uri  = "some url"
-        #   authorizer_key   = "azure"
-        # }
-
-        # "$default" = {
-        #   lambda_arn = "arn:aws:lambda:eu-west-1:052235179155:function:my-default-function"
-        # }
+        "POST /auth/p/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
     }
 
     # authorizers= {
@@ -134,6 +118,60 @@ module "api_gateway" {
         throttling_rate_limit    = 100
     }
 
+}
+
+resource "aws_lambda_permission" "graphql_get_perms" {
+    statement_id  = "AllowGraphQLGet"
+    action        = "lambda:InvokeFunction"
+    function_name = "graphql"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/GET/graphql"
+}
+
+resource "aws_lambda_permission" "graphql_post_perms" {
+    statement_id  = "AllowGraphQLPost"
+    action        = "lambda:InvokeFunction"
+    function_name = "graphql"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/graphql"
+}
+
+resource "aws_lambda_permission" "register_p_perms" {
+    statement_id  = "AllowPRegister"
+    action        = "lambda:InvokeFunction"
+    function_name = "auth"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/register"
+}
+
+resource "aws_lambda_permission" "login_p_perms" {
+    statement_id  = "AllowPLogin"
+    action        = "lambda:InvokeFunction"
+    function_name = "auth"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/login"
+}
+
+resource "aws_lambda_permission" "register_d_perms" {
+    statement_id  = "AllowDRegister"
+    action        = "lambda:InvokeFunction"
+    function_name = "auth"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/register"
+}
+
+resource "aws_lambda_permission" "login_d_perms" {
+    statement_id  = "AllowDLogin"
+    action        = "lambda:InvokeFunction"
+    function_name = "auth"
+    principal     = "apigateway.amazonaws.com"
+
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/login"
 }
 
 # authorizer

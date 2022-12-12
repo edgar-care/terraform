@@ -5,6 +5,13 @@ variable "aws_region" {
     default = "eu-west-3"
 }
 
+variable "aws_account_id" {
+    description = "AWS account ID for all resources."
+
+    type = string
+    default = "146778342232"
+}
+
 variable "base_lambda_arn" {
     description = "ARN of the GraphQL lambda"
 
