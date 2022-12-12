@@ -1,16 +1,16 @@
 terraform {
     required_providers {
         aws = {
-        source  = "hashicorp/aws"
-        version = ">= 4.9.0"
+            source  = "hashicorp/aws"
+            version = ">= 4.9.0"
         }
         random = {
-        source  = "hashicorp/random"
-        version = "~> 3.1.0"
+            source  = "hashicorp/random"
+            version = "~> 3.1.0"
         }
         archive = {
-        source  = "hashicorp/archive"
-        version = "~> 2.2.0"
+            source  = "hashicorp/archive"
+            version = "~> 2.2.0"
         }
     }
 
@@ -77,14 +77,14 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "POST /m/login" = {
+        "POST /d/login" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
             authorizer_key = "cognito"
         }
 
-        "POST /m/register" = {
+        "POST /d/register" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
