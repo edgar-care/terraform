@@ -18,3 +18,15 @@ variable "base_lambda_arn" {
     type = string
     default = "arn:aws:lambda:eu-west-3:146778342232:function:"
 }
+
+variable "buckets" {
+    description = "Buckets to be created"
+
+    type = map(any)
+    default = {
+        "edgar-care-openapi" = {
+            "acl" = "private",
+            versioning = true
+        },
+    }
+}
