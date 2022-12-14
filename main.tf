@@ -120,59 +120,74 @@ module "api_gateway" {
 
 }
 
-resource "aws_lambda_permission" "graphql_get_perms" {
-    statement_id  = "AllowGraphQLGet"
-    action        = "lambda:InvokeFunction"
-    function_name = "graphql"
-    principal     = "apigateway.amazonaws.com"
+resource "aws_lambda_permission" "route" {
+    for_each = {for vm in var.lambda_permissions: vm.state_id => vm}
+    #for_each = "${var.lambda_permissions}"
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/GET/graphql"
+    statement_id = "${each.value.state_id}"
+    action = "lambda:InvokeFunction"
+    function_name = "${each.value.name}"
+    principal = "apigateway.amazonaws.com"
+    
+    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}:${each.value.route}"
 }
 
-resource "aws_lambda_permission" "graphql_post_perms" {
-    statement_id  = "AllowGraphQLPost"
-    action        = "lambda:InvokeFunction"
-    function_name = "graphql"
-    principal     = "apigateway.amazonaws.com"
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/graphql"
-}
 
-resource "aws_lambda_permission" "register_p_perms" {
-    statement_id  = "AllowPRegister"
-    action        = "lambda:InvokeFunction"
-    function_name = "auth"
-    principal     = "apigateway.amazonaws.com"
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/register"
-}
+# resource "aws_lambda_permission" "graphql_get_perms" {
+#     statement_id  = "AllowGraphQLGet"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "graphql"
+#     principal     = "apigateway.amazonaws.com"
 
-resource "aws_lambda_permission" "login_p_perms" {
-    statement_id  = "AllowPLogin"
-    action        = "lambda:InvokeFunction"
-    function_name = "auth"
-    principal     = "apigateway.amazonaws.com"
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/GET/graphql"
+# }
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/login"
-}
+# resource "aws_lambda_permission" "graphql_post_perms" {
+#     statement_id  = "AllowGraphQLPost"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "graphql"
+#     principal     = "apigateway.amazonaws.com"
 
-resource "aws_lambda_permission" "register_d_perms" {
-    statement_id  = "AllowDRegister"
-    action        = "lambda:InvokeFunction"
-    function_name = "auth"
-    principal     = "apigateway.amazonaws.com"
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/graphql"
+# }
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/register"
-}
+# resource "aws_lambda_permission" "register_p_perms" {
+#     statement_id  = "AllowPRegister"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "auth"
+#     principal     = "apigateway.amazonaws.com"
 
-resource "aws_lambda_permission" "login_d_perms" {
-    statement_id  = "AllowDLogin"
-    action        = "lambda:InvokeFunction"
-    function_name = "auth"
-    principal     = "apigateway.amazonaws.com"
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/register"
+# }
 
-    source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/login"
-}
+# resource "aws_lambda_permission" "login_p_perms" {
+#     statement_id  = "AllowPLogin"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "auth"
+#     principal     = "apigateway.amazonaws.com"
+
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/p/login"
+# }
+
+# resource "aws_lambda_permission" "register_d_perms" {
+#     statement_id  = "AllowDRegister"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "auth"
+#     principal     = "apigateway.amazonaws.com"
+
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/register"
+# }
+
+# resource "aws_lambda_permission" "login_d_perms" {
+#     statement_id  = "AllowDLogin"
+#     action        = "lambda:InvokeFunction"
+#     function_name = "auth"
+#     principal     = "apigateway.amazonaws.com"
+
+#     source_arn = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${module.api_gateway.apigatewayv2_api_id}/*/POST/auth/d/login"
+# }
 
 # authorizer
 # resource "aws_cognito_user_pool" "pool" {
