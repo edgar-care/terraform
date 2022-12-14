@@ -28,5 +28,15 @@ variable "buckets" {
             "acl" = "private",
             versioning = true
         },
+        "edgar-care-apk" = {
+            "acl" = "private",
+            versioning = true
+        },
     }
+}
+
+variable "folder-uploads" {
+    description = "Name of the folwer where you recup apk"
+
+    type = string
 }
