@@ -35,8 +35,45 @@ variable "buckets" {
     }
 }
 
-variable "folder-uploads" {
-    description = "Name of the folwer where you recup apk"
+variable "lambda_permissions" {
+    description = "lambda permissions"
 
-    type = string
+    type = list(any)
+    default = [
+        {
+            name = "graphql",
+            "route" = "GET/graphql",
+            "state_id" = "AllowGraphQLGet"
+
+        },
+        {
+            name = "graphql",
+            "route" = "POST/graphql",
+            "state_id" = "AllowGraphQLPost"
+
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/p/register",
+            "state_id" = "AllowPRegister"
+
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/p/login",
+            "state_id" = "AllowPLogin"
+
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/d/register",
+            "state_id" = "AllowDRegister"
+
+        } ,   
+        {
+            name = "auth",
+            "route" = "POST/auth/d/login",
+            "state_id" = "AllowDLogin"
+        },
+    ]
 }
