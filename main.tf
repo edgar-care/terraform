@@ -106,6 +106,12 @@ module "api_gateway" {
             lambda_arn = format("%s%s", var.base_lambda_arn, "nlp")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
+        }            
+        
+        "Post /exam" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
         }
     }
 

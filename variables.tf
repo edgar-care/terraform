@@ -75,6 +75,12 @@ variable "lambda_permissions" {
             name = "nlp",
             route = "GET/nlp",
             "state_id": "AllowNLP"
-        }
+        },
+
+        {
+            name = "exam",
+            "route" = "POST/exam",
+            "state_id" = "AllowExam"
+        },
     ]
 }
