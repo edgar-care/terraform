@@ -24,10 +24,6 @@ variable "buckets" {
 
     type = map(any)
     default = {
-        "edgar-care-openapi" = {
-            "acl" = "private",
-            versioning = true
-        },
         "edgar-care-apk" = {
             "acl" = "private",
             versioning = true
@@ -69,11 +65,16 @@ variable "lambda_permissions" {
             "route" = "POST/auth/d/register",
             "state_id" = "AllowDRegister"
 
-        } ,   
+        } ,
         {
             name = "auth",
             "route" = "POST/auth/d/login",
             "state_id" = "AllowDLogin"
         },
+        {
+            name = "nlp",
+            route = "GET/nlp",
+            "state_id": "AllowNLP"
+        }
     ]
 }
