@@ -1,16 +1,16 @@
 terraform {
     required_providers {
         aws = {
-        source  = "hashicorp/aws"
-        version = ">= 4.9.0"
+            source  = "hashicorp/aws"
+            version = ">= 4.9.0"
         }
         random = {
-        source  = "hashicorp/random"
-        version = "~> 3.1.0"
+            source  = "hashicorp/random"
+            version = "~> 3.1.0"
         }
         archive = {
-        source  = "hashicorp/archive"
-        version = "~> 2.2.0"
+            source  = "hashicorp/archive"
+            version = "~> 2.2.0"
         }
     }
 
@@ -68,6 +68,7 @@ module "api_gateway" {
             lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
             payload_format_version = "2.0"
             timeout_milliseconds   = 12000
+            // authorizer_key = "cognito"
         }
 
         "POST /graphql" = {
@@ -76,48 +77,72 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "GET /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /auth/d/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+            // authorizer_key = "cognito"
+        }
+
+        "POST /auth/d/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        "PUT /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /auth/p/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        "DELETE /users" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "users")
+        "POST /auth/p/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
 
-        # "GET /ping" = {
-        #     lambda_arn             = module.ping.lambda_function_arn
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds   = 12000
-        # }
+        "POST /nlp" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "nlp")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
 
-        # "GET /some-route-with-authorizer" = {
-        #   integration_type = "HTTP_PROXY"
-        #   integration_uri  = "some url"
-        #   authorizer_key   = "azure"
-        # }
-
-        # "$default" = {
-        #   lambda_arn = "arn:aws:lambda:eu-west-1:052235179155:function:my-default-function"
-        # }
+        "POST /exam" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
     }
 
-    # authorizers = {
-    #   "azure" = {
-    #     authorizer_type  = "JWT"
-    #     identity_sources = "$request.header.Authorization"
-    #     name             = "azure-auth"
-    #     audience         = ["d6a38afd-45d6-4874-d1aa-3c5c558aqcc2"]
-    #     issuer           = "https://sts.windows.net/aaee026e-8f37-410e-8869-72d9154873e4/"
-    #   }
+    # authorizers= {
+    #     "cognito" = {
+    #         authorizer_type  = "JWT"
+    #         identity_sources = "$request.header.Authorization"
+    #         name             = "cognito-auth"
+    #         audience = [aws_cognito_user_pool_client.client.id]
+    #         issuer   = "https://${aws_cognito_user_pool.pool.endpoint}"
+    #     }
     # }
+
+    default_route_settings = {
+        throttling_burst_limit   = 200
+        throttling_rate_limit    = 100
+    }
+
 }
+
+# authorizer
+# resource "aws_cognito_user_pool" "pool" {
+#     name = "api-gateway-pool"
+# }
+
+# resource "aws_cognito_user_pool_client" "client" {
+#     name = "api-gateway"
+#     user_pool_id = aws_cognito_user_pool.pool.id
+#     explicit_auth_flows = [
+#         "ALLOW_USER_PASSWORD_AUTH",
+#         "ALLOW_USER_SRP_AUTH",
+#         "ALLOW_REFRESH_TOKEN_AUTH"
+#     ]
+# }
