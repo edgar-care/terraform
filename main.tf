@@ -77,6 +77,18 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
+        "POST /auth/a/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /auth/a/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
         "POST /auth/d/login" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
@@ -110,6 +122,143 @@ module "api_gateway" {
 
         "POST /exam" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /diagnostic/initiate" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /diagnostic/diagnose" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "POST /onboarding/infos" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /onboarding/health" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /dashboard/medical-info" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /dashboard/medical-info" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+    
+        "POST /push-notif" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "POST /document/upload" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "POST /document/favorite/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /document/download/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "Delete /document/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /doctor/slot" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/slot/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/slots" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "DELETE /doctor/slot/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "POST /doctor/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /doctor/appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/{id}/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /patient/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /patient/appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "DELETE /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
