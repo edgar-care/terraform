@@ -1,0 +1,6 @@
+This Terraform repository is designed to help you manage and deploy AWS API Gateway resources using Infrastructure as Code (IaC) principles. The repository focuses on creating and configuring API Gateway components such as APIs, resources, methods, and integrations.
+
+Prerequisites:
+Before using this Terraform repository, ensure that you have the following prerequisites installed:
+
+Terraform: Visit Terraform Installation for instructions on installing Terraform.
