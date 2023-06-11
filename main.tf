@@ -113,6 +113,18 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+
+        "POST /diagnostic/initiate" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /diagnostic/diagnose" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
     }
 
     # authorizers= {
