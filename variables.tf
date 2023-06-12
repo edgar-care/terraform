@@ -94,5 +94,17 @@ variable "lambda_permissions" {
             "route" = "POST/diagnostic/diagnose",
             "state_id" = "AllowDiagnose"
         },
+
+        {
+            name = "onboarding",
+            "route" = "POST/onboarding/infos",
+            "state_id" = "AllowInfos"
+        },
+
+        {
+            name = "onboarding",
+            "route" = "POST/onboarding/health",
+            "state_id" = "AllowHealth"
+        },
     ]
 }
