@@ -131,7 +131,7 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "POST /diagnostic/health" = {
+        "POST /onboarding/health" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
