@@ -106,5 +106,11 @@ variable "lambda_permissions" {
             "route" = "POST/onboarding/health",
             "state_id" = "AllowHealth"
         },
+
+        {
+            name = "pushnotification",
+            "route" = "POST/push-notif",
+            "state_id" = "AllowPush-notif"
+        },
     ]
 }
