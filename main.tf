@@ -148,9 +148,51 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+        "GET /dashboard/medical-info" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /dashboard/medical-info" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
     
         "POST /push-notif" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/{id}/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /patient/appointments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /patient/appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "DELETE /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }

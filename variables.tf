@@ -117,11 +117,52 @@ variable "lambda_permissions" {
             "route" = "POST/onboarding/health",
             "state_id" = "AllowHealth"
         },
+        {
+            name = "onboarding",
+            "route" = "GET/dashboard/medical-info",
+            "state_id" = "AllowMedical-infoGET"
+        },
+        {
+            name = "onboarding",
+            "route" = "PUT/dashboard/medical-info",
+            "state_id" = "AllowMedical-infoPUT"
+        },
 
         {
             name = "pushnotification",
             "route" = "POST/push-notif",
             "state_id" = "AllowPush-notif"
         },
+
+        {
+            name = "appointments",
+            "route" = "GET/doctor/{id}/appointments",
+            "state_id" = "AllowAppointmentsDoctor" 
+        },
+        {
+            name = "appointments",
+            "route" = "GET/patient/appointments",
+            "state_id" = "AllowAppointmentsAll" 
+        },
+        {
+            name = "appointments",
+            "route" = "POST/appointments/{id}",
+            "state_id" = "AllowAppointmentsPost" 
+        },
+        {
+            name = "appointments",
+            "route" = "GET/patient/appointments/{id}",
+            "state_id" = "AllowAppointmentsPatient" 
+        },
+        {
+            name = "appointments",
+            "route" = "DELETE/appointments/{id}",
+            "state_id" = "AllowAppointmentsDelete" 
+        },
+        {
+            name = "appointments",
+            "route" = "PUT/appointments/{id}",
+            "state_id" = "AllowAppointmentsPut" 
+        }    
     ]
 }
