@@ -72,6 +72,17 @@ variable "lambda_permissions" {
             "state_id" = "AllowDLogin"
         },
         {
+            name = "auth",
+            "route" = "POST/auth/a/login",
+            "state_id" = "AllowALogin"
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/a/register",
+            "state_id" = "AllowARegister"
+
+        } ,
+        {
             name = "nlp",
             route = "POST/nlp",
             "state_id": "AllowNLP"
