@@ -77,6 +77,18 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
+        "POST /auth/a/login" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /auth/a/register" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
         "POST /auth/d/login" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
             payload_format_version = "2.0"
