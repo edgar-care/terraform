@@ -71,22 +71,11 @@ variable "lambda_permissions" {
             "route" = "POST/auth/d/login",
             "state_id" = "AllowDLogin"
         },
-        {
-            name = "auth",
-            "route" = "POST/auth/a/login",
-            "state_id" = "AllowALogin"
-        },
-        {
-            name = "auth",
-            "route" = "POST/auth/a/register",
-            "state_id" = "AllowARegister"
-
-        } ,
-        {
-            name = "nlp",
-            route = "POST/nlp",
-            "state_id": "AllowNLP"
-        },
+        # {
+        #     name = "nlp",
+        #     route = "POST/nlp",
+        #     "state_id": "AllowNLP"
+        # },
 
         {
             name = "exam",
@@ -133,36 +122,97 @@ variable "lambda_permissions" {
             "route" = "POST/push-notif",
             "state_id" = "AllowPush-notif"
         },
+        {
+            name = "document",
+            "route" = "POST/document/upload",
+            "state_id" = "AllowDocument"
+        },
+        {
+            name = "document",
+            "route" = "POST/document/favorite/{id}",
+            "state_id" = "AllowDocument"
+        },
+        {
+            name = "document",
+            "route" = "GET/document/download/{id}",
+            "state_id" = "AllowDocument"
+        },
+        {
+            name = "document",
+            "route" = "DELETE/document/{id}",
+            "state_id" = "AllowDocument"
+        },
+
+        {
+            name = "slot",
+            "route" = "POST/doctor/slot",
+            "state_id" = "AllowSlot"
+        },
+        {
+            name = "slot",
+            "route" = "GET/doctor/slot/{id}",
+            "state_id" = "AllowSlot"
+        },
+        {
+            name = "slot",
+            "route" = "GET/doctor/slots",
+            "state_id" = "AllowSlot"
+        },
+        {
+            name = "slot",
+            "route" = "DELETE/doctor/slot/{id}",
+            "state_id" = "AllowSlot"
+        },
 
         {
             name = "appointments",
-            "route" = "GET/doctor/{id}/appointments",
-            "state_id" = "AllowAppointmentsDoctor" 
-        },
-        {
-            name = "appointments",
-            "route" = "GET/patient/appointments",
-            "state_id" = "AllowAppointmentsAll" 
-        },
-        {
-            name = "appointments",
             "route" = "POST/appointments/{id}",
-            "state_id" = "AllowAppointmentsPost" 
+            "state_id" = "AllowAppointments"
         },
         {
             name = "appointments",
-            "route" = "GET/patient/appointments/{id}",
-            "state_id" = "AllowAppointmentsPatient" 
-        },
-        {
-            name = "appointments",
-            "route" = "DELETE/appointments/{id}",
-            "state_id" = "AllowAppointmentsDelete" 
+            "route" = "POST/doctor/appointments",
+            "state_id" = "AllowAppointments"
         },
         {
             name = "appointments",
             "route" = "PUT/appointments/{id}",
-            "state_id" = "AllowAppointmentsPut" 
-        }    
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "PUT/doctor/appointments/{id}",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "GET/doctor/{id}/appointments",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "GET/patient/appointments",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "GET/patient/appointments/{id}",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "GET/doctor/appointments/{id}",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "GET/doctor/appointments",
+            "state_id" = "AllowAppointments"
+        },
+        {
+            name = "appointments",
+            "route" = "DELETE/appointments/{id}",
+            "state_id" = "AllowAppointments"
+        },
     ]
 }
