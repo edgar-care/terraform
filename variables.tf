@@ -71,6 +71,17 @@ variable "lambda_permissions" {
             "route" = "POST/auth/d/login",
             "state_id" = "AllowDLogin"
         },
+        {
+            name = "auth",
+            "route" = "POST/auth/a/login",
+            "state_id" = "AllowALogin"
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/a/register",
+            "state_id" = "AllowARegister"
+
+        } ,
         # {
         #     name = "nlp",
         #     route = "POST/nlp",
@@ -125,22 +136,22 @@ variable "lambda_permissions" {
         {
             name = "document",
             "route" = "POST/document/upload",
-            "state_id" = "AllowDocument"
+            "state_id" = "AllowDocumentUpload"
         },
         {
             name = "document",
             "route" = "POST/document/favorite/{id}",
-            "state_id" = "AllowDocument"
+            "state_id" = "AllowDocumentFavorite"
         },
         {
             name = "document",
             "route" = "GET/document/download/{id}",
-            "state_id" = "AllowDocument"
+            "state_id" = "AllowDocumentDownload"
         },
         {
             name = "document",
             "route" = "DELETE/document/{id}",
-            "state_id" = "AllowDocument"
+            "state_id" = "AllowDocumentDELETE"
         },
 
         {
@@ -151,17 +162,17 @@ variable "lambda_permissions" {
         {
             name = "slot",
             "route" = "GET/doctor/slot/{id}",
-            "state_id" = "AllowSlot"
+            "state_id" = "AllowSlotGETOne"
         },
         {
             name = "slot",
             "route" = "GET/doctor/slots",
-            "state_id" = "AllowSlot"
+            "state_id" = "AllowSlotGET"
         },
         {
             name = "slot",
             "route" = "DELETE/doctor/slot/{id}",
-            "state_id" = "AllowSlot"
+            "state_id" = "AllowSlotDELETE"
         },
 
         {
@@ -172,47 +183,47 @@ variable "lambda_permissions" {
         {
             name = "appointments",
             "route" = "POST/doctor/appointments",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsDoctor"
         },
         {
             name = "appointments",
             "route" = "PUT/appointments/{id}",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsModify"
         },
         {
             name = "appointments",
             "route" = "PUT/doctor/appointments/{id}",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsDoctorModify"
         },
         {
             name = "appointments",
             "route" = "GET/doctor/{id}/appointments",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsGETDoctor"
         },
         {
             name = "appointments",
             "route" = "GET/patient/appointments",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsGETAll"
         },
         {
             name = "appointments",
             "route" = "GET/patient/appointments/{id}",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsGETOne"
         },
         {
             name = "appointments",
             "route" = "GET/doctor/appointments/{id}",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsGETDoctorOne"
         },
         {
             name = "appointments",
             "route" = "GET/doctor/appointments",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsGETDoctorAll"
         },
         {
             name = "appointments",
             "route" = "DELETE/appointments/{id}",
-            "state_id" = "AllowAppointments"
+            "state_id" = "AllowAppointmentsDELETE"
         },
     ]
 }
