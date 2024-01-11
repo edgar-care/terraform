@@ -153,26 +153,31 @@ variable "lambda_permissions" {
             "route" = "DELETE/document/{id}",
             "state_id" = "AllowDocumentDELETE"
         },
+        {
+            name = "document",
+            "route" = "DELETE/document/favorite/{id}",
+            "state_id" = "AllowDocumentFavDELETE"
+        },
 
         {
-            name = "slot",
+            name = "appointments",
             "route" = "POST/doctor/slot",
-            "state_id" = "AllowSlot"
+            "state_id" = "AllowAppointmentsSlot"
         },
         {
-            name = "slot",
+            name = "appointments",
             "route" = "GET/doctor/slot/{id}",
-            "state_id" = "AllowSlotGETOne"
+            "state_id" = "AllowAppointmentsSlotGETOne"
         },
         {
-            name = "slot",
+            name = "appointments",
             "route" = "GET/doctor/slots",
-            "state_id" = "AllowSlotGET"
+            "state_id" = "AllowAppointmentsSlotGET"
         },
         {
-            name = "slot",
+            name = "appointments",
             "route" = "DELETE/doctor/slot/{id}",
-            "state_id" = "AllowSlotDELETE"
+            "state_id" = "AllowAppointmentsSlotDELETE"
         },
 
         {

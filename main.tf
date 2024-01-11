@@ -185,24 +185,29 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+        "Delete /document/favorite/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
 
         "POST /doctor/slot" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
         "GET /doctor/slot/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
         "GET /doctor/slots" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
         "DELETE /doctor/slot/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "slot")
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
