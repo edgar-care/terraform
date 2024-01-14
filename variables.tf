@@ -82,11 +82,11 @@ variable "lambda_permissions" {
             "state_id" = "AllowARegister"
 
         } ,
-        # {
-        #     name = "nlp",
-        #     route = "POST/nlp",
-        #     "state_id": "AllowNLP"
-        # },
+        {
+            name = "nlp",
+            route = "POST/nlp",
+            "state_id": "AllowNLP"
+        },
 
         {
             name = "exam",
