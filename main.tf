@@ -114,11 +114,22 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        # "POST /nlp" = {
-        #     lambda_arn = format("%s%s", var.base_lambda_arn, "nlp")
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds = 12000
-        # }
+        "POST /admin/create_account/demo" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "POST /admin/create_account/test" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+
+        "POST /nlp" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "nlp")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
 
         "POST /exam" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
