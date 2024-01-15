@@ -348,7 +348,11 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-
+        "DELETE /doctor/appointments/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
         "POST /appointments/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
             payload_format_version = "2.0"

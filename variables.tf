@@ -182,6 +182,12 @@ variable "lambda_permissions" {
 
         {
             name = "appointments",
+            "route" = "DELETE/doctor/appointments/{id}",
+            "state_id" = "AllowAppointmentsDELETEDoctor"
+        },
+
+        {
+            name = "appointments",
             "route" = "POST/appointments/{id}",
             "state_id" = "AllowAppointments"
         },
