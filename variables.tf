@@ -83,6 +83,16 @@ variable "lambda_permissions" {
 
         } ,
         {
+            name = "auth",
+            "route" = "POST/admin/create_account/demo",
+            "state_id" = "AllowCreateDemoAccount"
+        } ,
+        {
+            name = "auth",
+            "route" = "POST/admin/create_account/test",
+            "state_id" = "AllowCreateTestAccount"
+        } ,
+        {
             name = "nlp",
             route = "POST/nlp",
             "state_id": "AllowNLP"
