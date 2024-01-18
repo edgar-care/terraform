@@ -160,6 +160,16 @@ variable "lambda_permissions" {
         },
         {
             name = "document",
+            "route" = "GET/document/download",
+            "state_id" = "AllowAllDocumentDownload"
+        },
+        {
+            name = "document",
+            "route" = "PUT/document/{id}",
+            "state_id" = "AllowDocumentUpdate"
+        },
+        {
+            name = "document",
             "route" = "DELETE/document/{id}",
             "state_id" = "AllowDocumentDELETE"
         },
@@ -245,6 +255,21 @@ variable "lambda_permissions" {
             name = "appointments",
             "route" = "DELETE/appointments/{id}",
             "state_id" = "AllowAppointmentsDELETE"
+        },
+        {
+            name = "dashboard",
+            "route" = "GET/doctor/patients",
+            "state_id" = "AllowDashboardGetAll"
+        },
+        {
+            name = "dashboard",
+            "route" = "GET/doctor/patient/{id}",
+            "state_id" = "AllowDashboardGetone"
+        },
+        {
+            name = "onboarding",
+            "route" = "PUT/doctor/patient/{id}",
+            "state_id" = "AllowDashboardUpdateOnboarding"
         },
     ]
 }

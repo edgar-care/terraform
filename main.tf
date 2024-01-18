@@ -191,6 +191,16 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+        "GET /document/download" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /document/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
         "Delete /document/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document")
             payload_format_version = "2.0"
@@ -416,6 +426,11 @@ module "api_gateway" {
         }
         "PUT /appointments/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /doctor/patient/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
