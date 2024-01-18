@@ -434,6 +434,17 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+
+        "GET /doctor/patient/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/patients" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
     }
 
     # authorizers= {
