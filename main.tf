@@ -201,12 +201,12 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "Delete /document/{id}" = {
+        "DELETE /document/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "Delete /document/favorite/{id}" = {
+        "DELETE /document/favorite/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
@@ -328,26 +328,26 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "POST /document/upload" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-        "POST /document/favorite/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-        "GET /document/download/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-        "Delete /document/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
+        # "POST /document/upload" = {
+        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        #     payload_format_version = "2.0"
+        #     timeout_milliseconds = 12000
+        # }
+        # "POST /document/favorite/{id}" = {
+        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        #     payload_format_version = "2.0"
+        #     timeout_milliseconds = 12000
+        # }
+        # "GET /document/download/{id}" = {
+        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        #     payload_format_version = "2.0"
+        #     timeout_milliseconds = 12000
+        # }
+        # "DELETE /document/{id}" = {
+        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        #     payload_format_version = "2.0"
+        #     timeout_milliseconds = 12000
+        # }
 
         "POST /doctor/slot" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
