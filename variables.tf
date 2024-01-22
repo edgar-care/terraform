@@ -93,6 +93,21 @@ variable "lambda_permissions" {
             "state_id" = "AllowCreateTestAccount"
         } ,
         {
+            name = "auth",
+            "route" = "POST/auth/p/create_account",
+            "state_id" = "AllowCreatePatientAccount"
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/p/missing-password",
+            "state_id" = "AllowMissingPassword"
+        },
+        {
+            name = "auth",
+            "route" = "POST/auth/p/reset-password",
+            "state_id" = "AllowResetPassword"
+        },
+        {
             name = "nlp",
             route = "POST/nlp",
             "state_id": "AllowNLP"
