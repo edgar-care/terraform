@@ -286,5 +286,10 @@ variable "lambda_permissions" {
             "route" = "PUT/doctor/patient/{id}",
             "state_id" = "AllowDashboardUpdateOnboarding"
         },
+        {
+            name = "dashboard",
+            "route" = "POST/doctor/patient",
+            "state_id" = "AllowDashboardPost"
+        },
     ]
 }
