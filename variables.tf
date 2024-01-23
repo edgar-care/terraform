@@ -288,6 +288,11 @@ variable "lambda_permissions" {
             "state_id" = "AllowDashboardGetone"
         },
         {
+            name = "dashboard",
+            "route" = "DELETE/doctor/patient/{id}",
+            "state_id" = "AllowDashboardDeleteone"
+        },
+        {
             name = "onboarding",
             "route" = "PUT/doctor/patient/{id}",
             "state_id" = "AllowDashboardUpdateOnboarding"
