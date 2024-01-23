@@ -132,6 +132,12 @@ variable "lambda_permissions" {
         },
 
         {
+            name = "diagnostic",
+            "route" = "GET/diagnostic/summary/{id}",
+            "state_id" = "AllowDiagnosticSummary"
+        },
+
+        {
             name = "onboarding",
             "route" = "POST/onboarding/infos",
             "state_id" = "AllowInfos"

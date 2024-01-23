@@ -318,6 +318,11 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+        "GET /diagnostic/summary/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
         "POST /onboarding/infos" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
             payload_format_version = "2.0"
