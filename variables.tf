@@ -38,14 +38,8 @@ variable "lambda_permissions" {
     default = [
         {
             name = "graphql",
-            "route" = "GET/graphql",
-            "state_id" = "AllowGraphQLGet"
-
-        },
-        {
-            name = "graphql",
-            "route" = "POST/graphql",
-            "state_id" = "AllowGraphQLPost"
+            "route" = "ANY/graphql/{proxy+}",
+            "state_id" = "AllowGraphQLAnyProxy"
 
         },
         {
