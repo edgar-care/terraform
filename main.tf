@@ -64,14 +64,7 @@ module "api_gateway" {
 
     # Routes and integrations
     integrations = {
-        "GET /graphql" = {
-            lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
-            payload_format_version = "2.0"
-            timeout_milliseconds   = 12000
-            // authorizer_key = "cognito"
-        }
-
-        "POST /graphql" = {
+        "ANY /graphql/{proxy+}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "graphql")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
