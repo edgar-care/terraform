@@ -132,25 +132,24 @@ variable "lambda_permissions" {
         },
 
         {
-            name = "onboarding",
-            "route" = "POST/onboarding/infos",
-            "state_id" = "AllowInfos"
-        },
-
-        {
-            name = "onboarding",
-            "route" = "POST/onboarding/health",
-            "state_id" = "AllowHealth"
-        },
-        {
-            name = "onboarding",
+            name = "MedicalFolder",
             "route" = "GET/dashboard/medical-info",
             "state_id" = "AllowMedical-infoGET"
         },
         {
-            name = "onboarding",
+            name = "MedicalFolder",
             "route" = "PUT/dashboard/medical-info",
             "state_id" = "AllowMedical-infoPUT"
+        },
+        {
+            name = "MedicalFolder",
+            "route" = "POST/dashboard/medical-info",
+            "state_id" = "AllowMedical-infoPOST"
+        },
+        {
+            name = "MedicalFolder",
+            "route" = "PUT/doctor/patient/{id}",
+            "state_id" = "AllowMedical-infoPUTDocort"
         },
 
         {
@@ -170,6 +169,11 @@ variable "lambda_permissions" {
         },
         {
             name = "document",
+            "route" = "POST/doctor/document/upload",
+            "state_id" = "AllowDocumentUploadDoctor"
+        },
+        {
+            name = "document",
             "route" = "GET/document/download/{id}",
             "state_id" = "AllowDocumentDownload"
         },
@@ -177,6 +181,11 @@ variable "lambda_permissions" {
             name = "document",
             "route" = "GET/document/download",
             "state_id" = "AllowAllDocumentDownload"
+        },
+        {
+            name = "document",
+            "route" = "GET/doctor/document/{id}",
+            "state_id" = "AllowAllDocumentDoctorDownload"
         },
         {
             name = "document",
@@ -287,14 +296,24 @@ variable "lambda_permissions" {
             "state_id" = "AllowDashboardDeleteone"
         },
         {
-            name = "onboarding",
-            "route" = "PUT/doctor/patient/{id}",
-            "state_id" = "AllowDashboardUpdateOnboarding"
-        },
-        {
             name = "dashboard",
             "route" = "POST/doctor/patient",
             "state_id" = "AllowDashboardPost"
+        },
+        {
+            name = "medicament",
+            "route" = "POST/medicament",
+            "state_id" = "AllowMedicamentPost"
+        },
+        {
+            name = "medicament",
+            "route" = "GET/medicaments",
+            "state_id" = "AllowMedicamentGET"
+        },
+        {
+            name = "medicament",
+            "route" = "GET/medicament/{id}",
+            "state_id" = "AllowMedicamentGetOne"
         },
     ]
 }

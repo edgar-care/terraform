@@ -159,28 +159,27 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "POST /onboarding/infos" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
 
-        "POST /onboarding/health" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
         "GET /dashboard/medical-info" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+            lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "PUT /dashboard/medical-info" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
+        "PUT /dashboard/medical-info/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-
+        "POST /dashboard/medical-info" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "PUT /doctor/patient/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
     
         "POST /push-notif" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification")
@@ -197,12 +196,22 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+        "POST /doctor/document/upload" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
         "GET /document/download/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
         "GET /document/download" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+            payload_format_version = "2.0"
+            timeout_milliseconds = 12000
+        }
+        "GET /doctor/document/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
@@ -316,27 +325,7 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "POST /onboarding/infos" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
 
-        "POST /onboarding/health" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-        "GET /dashboard/medical-info" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
-        "PUT /dashboard/medical-info" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
 
     
         "POST /push-notif" = {
@@ -344,26 +333,6 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        # "POST /document/upload" = {
-        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds = 12000
-        # }
-        # "POST /document/favorite/{id}" = {
-        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds = 12000
-        # }
-        # "GET /document/download/{id}" = {
-        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds = 12000
-        # }
-        # "DELETE /document/{id}" = {
-        #     lambda_arn = format("%s%s", var.base_lambda_arn, "document")
-        #     payload_format_version = "2.0"
-        #     timeout_milliseconds = 12000
-        # }
 
         "POST /doctor/slot" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
@@ -445,11 +414,6 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "PUT /doctor/patient/{id}" = {
-            lambda_arn = format("%s%s", var.base_lambda_arn, "onboarding")
-            payload_format_version = "2.0"
-            timeout_milliseconds = 12000
-        }
 
         "GET /doctor/patient/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
@@ -470,6 +434,18 @@ module "api_gateway" {
             lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
+        }
+        "POST /medicament" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+            payload_format_version = "2.0"
+        }
+        "GET /medicaments" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+            payload_format_version = "2.0"
+        }
+        "GET /medicament/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+            payload_format_version = "2.0"
         }
     }
 
