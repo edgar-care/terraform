@@ -165,7 +165,7 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
-        "PUT /dashboard/medical-info/{id}" = {
+        "PUT /dashboard/medical-info" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
