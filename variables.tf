@@ -908,12 +908,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "POST/dashboard/treatment",
+            "route" = "POST/dev/dashboard/treatment",
             "state_id" = "AllowDevTreatmentPost"
         },
         {
             name = "treatment:demo",
-            "route" = "POST/dashboard/treatment",
+            "route" = "POST/demo/dashboard/treatment",
             "state_id" = "AllowDemoTreatmentPost"
         },
         {
@@ -923,12 +923,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "POST/dashboard/treatment",
+            "route" = "POST/dev/dashboard/treatment",
             "state_id" = "AllowDevTreatmentPut"
         },
         {
             name = "treatment:demo",
-            "route" = "POST/dashboard/treatment",
+            "route" = "POST/demo/dashboard/treatment",
             "state_id" = "AllowDemoTreatmentPut"
         },
 
@@ -939,12 +939,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "GET/dashboard/treatments",
+            "route" = "GET/dev/dashboard/treatments",
             "state_id" = "AllowDevTreatmentGetAll"
         },
         {
             name = "treatment:demo",
-            "route" = "GET/dashboard/treatments",
+            "route" = "GET/demo/dashboard/treatments",
             "state_id" = "AllowDemoTreatmentGetAll"
         },
 
@@ -955,12 +955,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "GET/dashboard/treatment/{id}",
+            "route" = "GET/dev/dashboard/treatment/{id}",
             "state_id" = "AllowDevTreatmentGetOne"
         },
         {
             name = "treatment:demo",
-            "route" = "GET/dashboard/treatment/{id}",
+            "route" = "GET/demo/dashboard/treatment/{id}",
             "state_id" = "AllowDemoTreatmentGetOne"
         },
 
@@ -971,12 +971,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "DELETE/dashboard/treatment/{id}",
+            "route" = "DELETE/dev/dashboard/treatment/{id}",
             "state_id" = "AllowDevTreatmentDelete"
         },
         {
             name = "treatment:demo",
-            "route" = "DELETE/dashboard/treatment/{id}",
+            "route" = "DELETE/demo/dashboard/treatment/{id}",
             "state_id" = "AllowDemoTreatmentDelete"
         },
 
@@ -988,12 +988,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment_follow_up",
-            "route" = "POST/dashboard/treatment/follow-up",
+            "route" = "POST/dev/dashboard/treatment/follow-up",
             "state_id" = "AllowDevTreatmentPost"
         },
         {
             name = "treatment_follow_up:demo",
-            "route" = "POST/dashboard/treatment/follow-up",
+            "route" = "POST/demo/dashboard/treatment/follow-up",
             "state_id" = "AllowDemoTreatmentPost"
         },
 
@@ -1004,12 +1004,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment_follow_up",
-            "route" = "GET/dashboard/treatment/follow-up",
+            "route" = "GET/dev/dashboard/treatment/follow-up",
             "state_id" = "AllowDevTreatmentGetAll"
         },
         {
             name = "treatment_follow_up:demo",
-            "route" = "GET/dashboard/treatment/follow-up",
+            "route" = "GET/demo/dashboard/treatment/follow-up",
             "state_id" = "AllowDemoTreatmentGetAll"
         },
 
@@ -1020,12 +1020,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment_follow_up",
-            "route" = "GET/dashboard/treatment/follow-up/{id}",
+            "route" = "GET/dev/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowDevTreatmentGetOne"
         },
         {
             name = "treatment_follow_up:demo",
-            "route" = "GET/dashboard/treatment/follow-up/{id}",
+            "route" = "GET/demo/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowDemoTreatmentGetOne"
         },
 
@@ -1037,12 +1037,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment_follow_up",
-            "route" = "DELETE/dashboard/treatment/follow-up/{id}",
+            "route" = "DELETE/dev/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowDevTreatmentDelete"
         },
         {
             name = "treatment_follow_up:demo",
-            "route" = "DELETE/dashboard/treatment/follow-up/{id}",
+            "route" = "DELETE/demo/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowDemoTreatmentDelete"
         },
     ]
