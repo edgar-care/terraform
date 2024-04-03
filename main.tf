@@ -1073,6 +1073,126 @@ module "api_gateway" {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
             payload_format_version = "2.0"
         }
+
+        "POST /dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+                payload_format_version = "2.0"
+        }
+        "POST /dev/dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+                payload_format_version = "2.0"
+        }
+        "POST /demo/dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+                payload_format_version = "2.0"
+        }
+
+        "PUT /dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+                payload_format_version = "2.0"
+        }
+        "PUT /dev/dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+                payload_format_version = "2.0"
+        }
+        "PUT /demo/dashboard/treatment" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+                payload_format_version = "2.0"
+        }
+        "GET /dashboard/treatments" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+                payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/treatments" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+                payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/treatments" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+                payload_format_version = "2.0"
+        }
+        "GET /dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+                payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+                payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+                payload_format_version = "2.0"
+        }
+
+        "DELETE /dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+                payload_format_version = "2.0"
+        }
+        "DELETE /dev/dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+                payload_format_version = "2.0"
+        }
+        "DELETE /demo/dashboard/treatment/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+                payload_format_version = "2.0"
+        }
+
+
+        "POST /dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+                payload_format_version = "2.0"
+        }
+        "POST /dev/dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+                payload_format_version = "2.0"
+        }
+        "POST /demo/dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+                payload_format_version = "2.0"
+        }
+
+
+        "GET /dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+                payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+                payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/treatment/follow-up" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+                payload_format_version = "2.0"
+        }
+
+
+        "GET /dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+                payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+                payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+                payload_format_version = "2.0"
+        }
+
+
+        "DELETE /dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+                payload_format_version = "2.0"
+        }
+        "DELETE /dev/dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+                payload_format_version = "2.0"
+        }
+        "DELETE /demo/dashboard/treatment/follow-up/{id}" = {
+                lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+                payload_format_version = "2.0"
+        }
+
     }
 
     # authorizers= {
