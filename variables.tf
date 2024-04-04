@@ -984,66 +984,66 @@ variable "lambda_permissions" {
        {
             name = "treatment_follow_up:prod",
             "route" = "POST/dashboard/treatment/follow-up",
-            "state_id" = "AllowTreatmentPost"
+            "state_id" = "AllowTreatmentFollowPost"
         },
         {
             name = "treatment_follow_up",
             "route" = "POST/dev/dashboard/treatment/follow-up",
-            "state_id" = "AllowDevTreatmentPost"
+            "state_id" = "AllowDevTreatmentFollowPost"
         },
         {
             name = "treatment_follow_up:demo",
             "route" = "POST/demo/dashboard/treatment/follow-up",
-            "state_id" = "AllowDemoTreatmentPost"
+            "state_id" = "AllowDemoTreatmentFollowPost"
         },
 
        {
             name = "treatment_follow_up:prod",
             "route" = "GET/dashboard/treatment/follow-up",
-            "state_id" = "AllowTreatmentGetALl"
+            "state_id" = "AllowTreatmentFollowGetALl"
         },
         {
             name = "treatment_follow_up",
             "route" = "GET/dev/dashboard/treatment/follow-up",
-            "state_id" = "AllowDevTreatmentGetAll"
+            "state_id" = "AllowDevTreatmentFollowGetAll"
         },
         {
             name = "treatment_follow_up:demo",
             "route" = "GET/demo/dashboard/treatment/follow-up",
-            "state_id" = "AllowDemoTreatmentGetAll"
+            "state_id" = "AllowDemoTreatmentFollowGetAll"
         },
 
        {
             name = "treatment_follow_up:prod",
             "route" = "GET/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowTreatmentGetOne"
+            "state_id" = "AllowTreatmentFollowGetOne"
         },
         {
             name = "treatment_follow_up",
             "route" = "GET/dev/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDevTreatmentGetOne"
+            "state_id" = "AllowDevTreatmentFollowGetOne"
         },
         {
             name = "treatment_follow_up:demo",
             "route" = "GET/demo/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDemoTreatmentGetOne"
+            "state_id" = "AllowDemoTreatmentFollowGetOne"
         },
 
 
        {
             name = "treatment_follow_up:prod",
             "route" = "DELETE/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowTreatmentDelete"
+            "state_id" = "AllowTreatmentFollowDelete"
         },
         {
             name = "treatment_follow_up",
             "route" = "DELETE/dev/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDevTreatmentDelete"
+            "state_id" = "AllowDevTreatmentFollowDelete"
         },
         {
             name = "treatment_follow_up:demo",
             "route" = "DELETE/demo/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDemoTreatmentDelete"
+            "state_id" = "AllowDemoTreatmentFollowDelete"
         },
     ]
 }
