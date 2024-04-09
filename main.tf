@@ -1029,47 +1029,47 @@ module "api_gateway" {
             timeout_milliseconds = 12000
         }
 
-        "POST /medicament" = {
+        "POST /medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
             payload_format_version = "2.0"
         }
 
-        "POST /dev/medicament" = {
+        "POST /dev/medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
             payload_format_version = "2.0"
         }
 
-        "POST /demo/medicament" = {
+        "POST /demo/medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
             payload_format_version = "2.0"
         }
 
-        "GET /medicaments" = {
+        "GET /medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
             payload_format_version = "2.0"
         }
 
-        "GET /dev/medicaments" = {
+        "GET /dev/medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
             payload_format_version = "2.0"
         }
 
-        "GET /demo/medicaments" = {
+        "GET /demo/medicine" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
             payload_format_version = "2.0"
         }
 
-        "GET /medicament/{id}" = {
+        "GET /medicine/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
             payload_format_version = "2.0"
         }
 
-        "GET /dev/medicament/{id}" = {
+        "GET /dev/medicine/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
             payload_format_version = "2.0"
         }
 
-        "GET /demo/medicament/{id}" = {
+        "GET /demo/medicine/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
             payload_format_version = "2.0"
         }

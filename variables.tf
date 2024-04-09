@@ -857,47 +857,47 @@ variable "lambda_permissions" {
         },
         {
             name = "medicament:prod",
-            "route" = "POST/medicament",
+            "route" = "POST/medicine",
             "state_id" = "AllowMedicamentPost"
         },
         {
             name = "medicament",
-            "route" = "POST/dev/medicament",
+            "route" = "POST/dev/medicine",
             "state_id" = "AllowDevMedicamentPost"
         },
         {
             name = "medicament:demo",
-            "route" = "POST/demo/medicament",
+            "route" = "POST/demo/medicine",
             "state_id" = "AllowDemoMedicamentPost"
         },
         {
             name = "medicament:prod",
-            "route" = "GET/medicaments",
+            "route" = "GET/medicine",
             "state_id" = "AllowMedicamentGET"
         },
         {
             name = "medicament",
-            "route" = "GET/dev/medicaments",
+            "route" = "GET/dev/medicine",
             "state_id" = "AllowDevMedicamentGET"
         },
         {
             name = "medicament:demo",
-            "route" = "GET/demo/medicaments",
+            "route" = "GET/demo/medicine",
             "state_id" = "AllowDemoMedicamentGET"
         },
         {
             name = "medicament:prod",
-            "route" = "GET/medicament/{id}",
+            "route" = "GET/medicine/{id}",
             "state_id" = "AllowMedicamentGetOne"
         },
         {
             name = "medicament",
-            "route" = "GET/dev/medicament/{id}",
+            "route" = "GET/dev/medicine/{id}",
             "state_id" = "AllowDevMedicamentGetOne"
         },
         {
             name = "medicament:demo",
-            "route" = "GET/demo/medicament/{id}",
+            "route" = "GET/demo/medicine/{id}",
             "state_id" = "AllowDemoMedicamentGetOne"
         },
 
