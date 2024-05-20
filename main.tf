@@ -1193,6 +1193,104 @@ module "api_gateway" {
                 payload_format_version = "2.0"
         }
 
+
+        "POST /ws/connection" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/connection" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/connection" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/disconnect" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/disconnect" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/disconnect" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/ready" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/ready" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/ready" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/create_chat" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/create_chat" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/create_chat" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/send_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/send_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/send_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/get_messages" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/get_messages" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/get_messages" = {
+            lambda_arn             = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /ws/read_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/ws/read_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/ws/read_message" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+            payload_format_version = "2.0"
+        }
+
     }
 
     # authorizers= {

@@ -797,32 +797,32 @@ variable "lambda_permissions" {
         },
         {
             name = "dashboard:prod",
-            "route" = "POST/doctor/{id}",
+            "route" = "GET/doctor/{id}",
             "state_id" = "AllowDoctorId"
         },
         {
             name = "dashboard",
-            "route" = "POST/dev/doctor/{id}",
+            "route" = "GET/dev/doctor/{id}",
             "state_id" = "AllowDevDoctorId"
         },
         {
             name = "dashboard:demo",
-            "route" = "POST/demo/doctor/{id}",
+            "route" = "GET/demo/doctor/{id}",
             "state_id" = "AllowDemoDoctorId"
         },
         {
             name = "dashboard:prod",
-            "route" = "POST/doctors",
+            "route" = "GET/doctors",
             "state_id" = "AllowDoctors"
         },
         {
             name = "dashboard",
-            "route" = "POST/dev/doctors",
+            "route" = "GET/dev/doctors",
             "state_id" = "AllowDevDoctors"
         },
         {
             name = "dashboard:demo",
-            "route" = "POST/demo/doctors",
+            "route" = "GET/demo/doctors",
             "state_id" = "AllowDemoDoctors"
         },
         {
@@ -923,12 +923,12 @@ variable "lambda_permissions" {
         },
         {
             name = "treatment",
-            "route" = "POST/dev/dashboard/treatment",
+            "route" = "PUT/dev/dashboard/treatment",
             "state_id" = "AllowDevTreatmentPut"
         },
         {
             name = "treatment:demo",
-            "route" = "POST/demo/dashboard/treatment",
+            "route" = "PUT/demo/dashboard/treatment",
             "state_id" = "AllowDemoTreatmentPut"
         },
 
@@ -1045,5 +1045,127 @@ variable "lambda_permissions" {
             "route" = "DELETE/demo/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowDemoTreatmentFollowDelete"
         },
+
+
+
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/connection",
+            "state_id" = "AllowConnectionPost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/connection",
+            "state_id" = "AllowDevConnectionPost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/connection",
+            "state_id" = "AllowDemoConnectionPost"
+        },
+
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/disconnect",
+            "state_id" = "AllowDisconnectPost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/disconnect",
+            "state_id" = "AllowDevDisconnectPost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/disconnect",
+            "state_id" = "AllowDemoDisconnectPost"
+        },
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/ready",
+            "state_id" = "AllowReadyPost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/ready",
+            "state_id" = "AllowDevReadyPost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/ready",
+            "state_id" = "AllowDemoReadyPost"
+        },
+
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/create_chat",
+            "state_id" = "AllowCreateChatPost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/create_chat",
+            "state_id" = "AllowDevCreateChatPost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/create_chat",
+            "state_id" = "AllowDemoCreateChatPost"
+        },
+
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/send_message",
+            "state_id" = "AllowSendMessagePost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/send_message",
+            "state_id" = "AllowDevSendMessagePost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/send_message",
+            "state_id" = "AllowDemoSendMessagePost"
+        },
+
+
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/get_messages",
+            "state_id" = "AllowGetMessagesPost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/get_messages",
+            "state_id" = "AllowDevGetMessagesPost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/get_messages",
+            "state_id" = "AllowDemoGetMessagesPost"
+        },
+
+        {
+            name = "chat:prod",
+            "route" = "POST/ws/read_message",
+            "state_id" = "AllowReadMessagePost"
+        },
+        {
+            name = "chat",
+            "route" = "POST/dev/ws/read_message",
+            "state_id" = "AllowDevReadMessagePost"
+        },
+        {
+            name = "chat:demo",
+            "route" = "POST/demo/ws/read_message",
+            "state_id" = "AllowDemoReadMessagePost"
+        },
+
+
     ]
 }
