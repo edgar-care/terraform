@@ -1166,6 +1166,141 @@ variable "lambda_permissions" {
             "state_id" = "AllowDemoReadMessagePost"
         },
 
+//=============================================
 
+        {
+            name = "double_auth:prod",
+            "route" = "POST/dashboard/double_auth/{id}",
+            "state_id" = "AllowRDeleteDevicePost"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/dashboard/double_auth/{id}",
+            "state_id" = "AllowDevDeleteDevicePost"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/dashboard/double_auth/{id}",
+            "state_id" = "AllowDemoDeleteDevicePost"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/2fa/method/email",
+            "state_id" = "AllowAddDoubleAutEmailPost"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/2fa/method/email",
+            "state_id" = "AllowDevAddDoubleAutEmailPost"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/2fa/method/email",
+            "state_id" = "AllowDemoDAddDoubleAutEmailPost"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/2fa/method/app-tier",
+            "state_id" = "AllowAddDoubleAuthAppTierPost"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/2fa/method/app-tier",
+            "state_id" = "AllowDevAddDoubleAuthAppTierPost"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/2fa/method/app-tier",
+            "state_id" = "AllowDemoAddDoubleAuthAppTierPost"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/2fa/method/mobile",
+            "state_id" = "AllowAddDoubleMobilePost"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/2fa/method/mobile",
+            "state_id" = "AllowDevAddDoubleMobilePost"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/2fa/method/mobile",
+            "state_id" = "AllowDemoAddDoubleMobilePost"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/devices",
+            "state_id" = "AllowGetDevicesGet"
+        },
+        {
+            name = "double_auth",
+            "route" = "GET/dev/dashboard/devices",
+            "state_id" = "AllowDevGetDevicesGet"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/devices",
+            "state_id" = "AllowDemoGetDevicesGet"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/double_auth/{id}",
+            "state_id" = "AllowGetDeviceGet"
+        },
+        {
+            name = "double_auth",
+            "route" = "GET/dev/dashboard/double_auth/{id}",
+            "state_id" = "AllowDevGetDeviceGet"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/double_auth/{id}",
+            "state_id" = "AllowDemoGetDeviceGet"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "DELETE/dashboard/double_auth/{id}",
+            "state_id" = "AllowDeleteDevice"
+        },
+        {
+            name = "double_auth",
+            "route" = "DELETE/dev/dashboard/double_auth/{id}",
+            "state_id" = "AllowDevDeleteDevice"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "DELETE/demo/dashboard/double_auth/{id}",
+            "state_id" = "AllowDemoDeleteDevice"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "DELETE/2fa/method/{ENUM}",
+            "state_id" = "AllowDisableDoubleAuth"
+        },
+        {
+            name = "double_auth",
+            "route" = "DELETE/dev/2fa/method/{ENUM}",
+            "state_id" = "AllowDevDisableDoubleAuth"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "DELETE/demo2fa/method/{ENUM}",
+            "state_id" = "AllowDemoDisableDoubleAuth"
+        },
     ]
 }

@@ -1290,6 +1290,118 @@ module "api_gateway" {
             lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
             payload_format_version = "2.0"
         }
+//======================================================================
+
+        "POST /dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /2fa/method/email" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/2fa/method/email" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/2fa/method/email" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /2fa/method/app-tier" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/2fa/method/app-tier" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/2fa/method/app-tier" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "POST /2fa/method/mobile" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "POST /dev/2fa/method/mobile" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "POST /demo/2fa/method/mobile" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "GET /dashboard/devices" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/devices" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/devices" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "GET /dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "GET /dev/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "GET /demo/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "DELETE /dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "DELETE /dev/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "DELETE /demo/dashboard/double_auth/{id}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
+
+
+        "DELETE /2fa/method/{ENUM}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+            payload_format_version = "2.0"
+        }
+        "DELETE /dev/2fa/method/{ENUM}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+            payload_format_version = "2.0"
+        }
+        "DELETE /demo/2fa/method/{ENUM}" = {
+            lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+            payload_format_version = "2.0"
+        }
 
     }
 
