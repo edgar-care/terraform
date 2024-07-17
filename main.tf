@@ -1,67 +1,76 @@
 terraform {
-    required_providers {
-        aws = {
-            source  = "hashicorp/aws"
-            version = ">= 4.9.0"
-        }
-        random = {
-            source  = "hashicorp/random"
-            version = "~> 3.1.0"
-        }
-        archive = {
-            source  = "hashicorp/archive"
-            version = "~> 2.2.0"
-        }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.9.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.1.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.2.0"
+    }
+  }
 
-    required_version = "~> 1.0"
+  required_version = "~> 1.0"
 }
 
 provider "aws" {
-    region = var.aws_region
+  region = var.aws_region
 }
-
 
 module "log_group" {
-    source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
-    version = "~> 3.0"
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
+  version = "~> 3.0"
 
-    name              = "gateway"
-    retention_in_days = 120
+  name              = "gateway"
+  retention_in_days = 120
+}
+
+module "api_gateway" {
+  source  = "terraform-aws-modules/apigateway-v2/aws"
+  version = "~> 5.1"
+
+  name          = "edgar.care"
+  description   = "My awesome HTTP API Gateway"
+  protocol_type = "HTTP"
+
+  cors_configuration = {
+    allow_headers = ["*"]
+    allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    allow_origins = ["*"]
+  }
+
+
+  routes = {
+    "GET /graphql" = {
+      integration = {
+        lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+  }
+
+    # integrations = {
+    #     "GET /graphql" = {
+    #         lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
+    #         payload_format_version = "2.0"
+    #         timeout_milliseconds   = 12000
+    #         // authorizer_key = "cognito"
+    #     }
+    # }
+}
+
+resource "aws_cloudwatch_log_group" "api_gateway_access_log" {
+  name              = "/aws/apigateway/edgar.care"
+  retention_in_days = 120
 }
 
 
-module "api_gateway" {
-    source = "terraform-aws-modules/apigateway-v2/aws"
-
-    name          = "edgar"
-    description   = "HTTP Api Gateway for edgar"
-    protocol_type = "HTTP"
-
-    cors_configuration = {
-        allow_headers = ["*"]
-        allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-        allow_origins = ["*"]
-    }
-
-    create_api_domain_name = false # to control creation of API Gateway Domain Name
-
-    # Access logs
-    default_stage_access_log_destination_arn = module.log_group.cloudwatch_log_group_arn
-    default_stage_access_log_format = jsonencode({
-        requestId               = "$context.requestId"
-        sourceIp                = "$context.identity.sourceIp"
-        requestTime             = "$context.requestTime"
-        protocol                = "$context.protocol"
-        httpMethod              = "$context.httpMethod"
-        resourcePath            = "$context.resourcePath"
-        routeKey                = "$context.routeKey"
-        status                  = "$context.status"
-        responseLength          = "$context.responseLength"
-        integrationErrorMessage = "$context.integrationErrorMessage"
-        }
-    )
-
+    /*
     # Routes and integrations
     integrations = {
         "ANY /graphql/{proxy+}" = {
@@ -616,6 +625,7 @@ module "api_gateway" {
             payload_format_version = "2.0"
             timeout_milliseconds = 12000
         }
+<<<<<<< Updated upstream
 
         "DELETE /document/{id}" = {
             lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
@@ -1404,6 +1414,9 @@ module "api_gateway" {
         }
 
     }
+=======
+    }*/
+>>>>>>> Stashed changes
 
     # authorizers= {
     #     "cognito" = {
@@ -1415,12 +1428,6 @@ module "api_gateway" {
     #     }
     # }
 
-    default_route_settings = {
-        throttling_burst_limit   = 200
-        throttling_rate_limit    = 100
-    }
-
-}
 
 # authorizer
 # resource "aws_cognito_user_pool" "pool" {
