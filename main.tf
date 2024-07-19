@@ -21,6 +21,23 @@ provider "aws" {
   region = var.aws_region
 }
 
+# variable "route53_zone_name" {
+#   default = "edgar.care."
+# }
+
+# data "aws_route53_zone" "selected" {
+#   name         = var.route53_zone_name
+#   private_zone = false
+# }
+#
+# resource "aws_route53_record" "www" {
+#   zone_id = data.aws_route53_zone.selected.zone_id
+#   name    = "www.${data.aws_route53_zone.selected.name}"
+#   type    = "A"
+#   ttl     = "300"
+#   records = ["10.0.0.1"]
+# }
+
 module "log_group" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
   version = "~> 3.0"
@@ -30,12 +47,15 @@ module "log_group" {
 }
 
 module "api_gateway" {
+  create_domain_name = false
+  create_domain_records = false
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = "~> 5.1"
 
   name          = "edgar.care"
   description   = "My awesome HTTP API Gateway"
   protocol_type = "HTTP"
+
 
   cors_configuration = {
     allow_headers = ["*"]
@@ -53,6 +73,7 @@ module "api_gateway" {
       }
     }
   }
+  #hosted_zone_id         = data.aws_route53_zone.this.id
 
     # integrations = {
     #     "GET /graphql" = {
