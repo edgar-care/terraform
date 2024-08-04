@@ -1320,5 +1320,40 @@ variable "lambda_permissions" {
             "route" = "PUT/demo/auth/disable_account",
             "state_id" = "AllowDemoDisableAccount"
         },
+
+        {
+            name = "auth:prod",
+            "route" = "PUT/auth/enable_account",
+            "state_id" = "AllowEnableAccount"
+        },
+        {
+            name = "auth",
+            "route" = "PUT/dev/auth/enable_account",
+            "state_id" = "AllowDevEnableAccount"
+        },
+        {
+            name = "auth:demo",
+            "route" = "PUT/demo/auth/enable_account",
+            "state_id" = "AllowDemoEnableAccount"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/creation_backup_code",
+            "state_id" = "AllowECreateBackupCode"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/creation_backup_code",
+            "state_id" = "AllowDevCreateBackupCode"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/creation_backup_code",
+            "state_id" = "AllowDemoCreateBackupCode"
+        },
+
+
     ]
 }
