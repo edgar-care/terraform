@@ -1302,5 +1302,23 @@ variable "lambda_permissions" {
             "route" = "DELETE/demo2fa/method/{ENUM}",
             "state_id" = "AllowDemoDisableDoubleAuth"
         },
+
+
+
+        {
+            name = "auth:prod",
+            "route" = "PUT/auth/disable_account",
+            "state_id" = "AllowDisableAccount"
+        },
+        {
+            name = "auth",
+            "route" = "PUT/dev/auth/disable_account",
+            "state_id" = "AllowDevDisableAccount"
+        },
+        {
+            name = "auth:demo",
+            "route" = "PUT/demo/auth/disable_account",
+            "state_id" = "AllowDemoDisableAccount"
+        },
     ]
 }
