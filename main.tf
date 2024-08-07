@@ -30,10 +30,7 @@ module "log_group" {
 }
 
 module "api_gateway" {
-  create_domain_name = false
-  create_domain_records = false
   source  = "terraform-aws-modules/apigateway-v2/aws"
-  version = "~> 5.1"
 
   name          = "edgar.care"
   description   = "My awesome HTTP API Gateway"
@@ -46,19 +43,44 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
+  create_domain_name = false
+  //create_domain_records = false
+
+  # Access logs
+  stage_access_log_settings = {
+    create_log_group            = true
+    log_group_retention_in_days = 7
+    format = jsonencode({
+      context = {
+        domainName              = "$context.domainName"
+        integrationErrorMessage = "$context.integrationErrorMessage"
+        protocol                = "$context.protocol"
+        requestId               = "$context.requestId"
+        requestTime             = "$context.requestTime"
+        responseLength          = "$context.responseLength"
+        routeKey                = "$context.routeKey"
+        stage                   = "$context.stage"
+        status                  = "$context.status"
+        error = {
+          message      = "$context.error.message"
+          responseType = "$context.error.responseType"
+        }
+        identity = {
+          sourceIP = "$context.identity.sourceIp"
+        }
+        integration = {
+          error             = "$context.integration.error"
+          integrationStatus = "$context.integration.integrationStatus"
+        }
+      }
+    })
+  }
+
 
   routes = {
-    "GET /graphql" = {
-      integration = {
-        lambda_arn             = format("%s%s", var.base_lambda_arn, "graphql")
-        payload_format_version = "2.0"
-        timeout_milliseconds   = 12000
-      }
-    }
-
     "ANY /graphql/{proxy+}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "graphql:prod")
+        uri = format("%s%s", var.base_lambda_arn, "graphql:prod")
         payload_format_version = "2.0"
         timeout_milliseconds = 12000
       }
@@ -66,7 +88,7 @@ module "api_gateway" {
 
     "ANY /dev/graphql/{proxy+}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "graphql")
+        uri = format("%s%s", var.base_lambda_arn, "graphql")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -74,7 +96,7 @@ module "api_gateway" {
 
     "ANY /demo/graphql/{proxy+}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "graphql:demo")
+        uri = format("%s%s", var.base_lambda_arn, "graphql:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -82,7 +104,7 @@ module "api_gateway" {
 
     "POST /auth/a/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -90,7 +112,7 @@ module "api_gateway" {
 
     "POST /dev/auth/a/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -98,7 +120,7 @@ module "api_gateway" {
 
     "POST /demo/auth/a/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -106,7 +128,7 @@ module "api_gateway" {
 
     "POST /auth/a/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -114,7 +136,7 @@ module "api_gateway" {
 
     "POST /dev/auth/a/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -122,7 +144,7 @@ module "api_gateway" {
 
     "POST /demo/auth/a/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -130,7 +152,7 @@ module "api_gateway" {
 
     "POST /auth/d/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -138,7 +160,7 @@ module "api_gateway" {
 
     "POST /dev/auth/d/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -146,7 +168,7 @@ module "api_gateway" {
 
     "POST /demo/auth/d/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -154,7 +176,7 @@ module "api_gateway" {
 
     "POST /auth/d/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -162,7 +184,7 @@ module "api_gateway" {
 
     "POST /dev/auth/d/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -170,7 +192,7 @@ module "api_gateway" {
 
     "POST /demo/auth/d/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -178,7 +200,7 @@ module "api_gateway" {
 
     "POST /auth/p/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -186,7 +208,7 @@ module "api_gateway" {
 
     "POST /dev/auth/p/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -194,7 +216,7 @@ module "api_gateway" {
 
     "POST /demo/auth/p/login" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -202,7 +224,7 @@ module "api_gateway" {
 
     "POST /auth/p/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -210,7 +232,7 @@ module "api_gateway" {
 
     "POST /demo/auth/p/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -218,7 +240,7 @@ module "api_gateway" {
 
     "POST /dev/auth/p/register" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -226,7 +248,7 @@ module "api_gateway" {
 
     "POST /admin/create_account/demo" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -234,7 +256,7 @@ module "api_gateway" {
 
     "POST /demo/admin/create_account/demo" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -242,7 +264,7 @@ module "api_gateway" {
 
     "POST /dev/admin/create_account/demo" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -250,7 +272,7 @@ module "api_gateway" {
 
     "POST /admin/create_account/test" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -258,7 +280,7 @@ module "api_gateway" {
 
     "POST /demo/admin/create_account/test" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -266,7 +288,7 @@ module "api_gateway" {
 
     "POST /dev/admin/create_account/test" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -274,7 +296,7 @@ module "api_gateway" {
 
     "POST /auth/p/create_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -282,7 +304,7 @@ module "api_gateway" {
 
     "POST /demo/auth/p/create_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -290,7 +312,7 @@ module "api_gateway" {
 
     "POST /dev/auth/p/create_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -298,7 +320,7 @@ module "api_gateway" {
 
     "POST /auth/p/missing-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -306,7 +328,7 @@ module "api_gateway" {
 
     "POST /demo/auth/p/missing-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -314,7 +336,7 @@ module "api_gateway" {
 
     "POST /dev/auth/p/missing-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -322,7 +344,7 @@ module "api_gateway" {
 
     "POST /auth/p/reset-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -330,7 +352,7 @@ module "api_gateway" {
 
     "POST /demo/auth/p/reset-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -338,7 +360,7 @@ module "api_gateway" {
 
     "POST /dev/auth/p/reset-password" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -346,14 +368,14 @@ module "api_gateway" {
 
     "POST /nlp" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "nlp:prod")
+        uri = format("%s%s", var.base_lambda_arn, "nlp:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "POST /demo/nlp" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "nlp:demo")
+        uri = format("%s%s", var.base_lambda_arn, "nlp:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -361,7 +383,7 @@ module "api_gateway" {
 
     "POST /dev/nlp" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "nlp")
+        uri = format("%s%s", var.base_lambda_arn, "nlp")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -369,7 +391,7 @@ module "api_gateway" {
 
     "POST /exam" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "exam:prod")
+        uri = format("%s%s", var.base_lambda_arn, "exam:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -377,7 +399,7 @@ module "api_gateway" {
 
     "POST /demo/exam" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "exam:demo")
+        uri = format("%s%s", var.base_lambda_arn, "exam:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -385,7 +407,7 @@ module "api_gateway" {
 
     "POST /dev/exam" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "exam")
+        uri = format("%s%s", var.base_lambda_arn, "exam")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -393,7 +415,7 @@ module "api_gateway" {
 
     "POST /diagnostic/diagnose" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -401,7 +423,7 @@ module "api_gateway" {
 
     "POST /demo/diagnostic/diagnose" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -409,7 +431,7 @@ module "api_gateway" {
 
     "POST /dev/diagnostic/diagnose" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -417,7 +439,7 @@ module "api_gateway" {
 
     "GET /doctor/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -425,14 +447,14 @@ module "api_gateway" {
 
     "GET /dev/doctor/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "GET /demo/doctor/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -440,7 +462,7 @@ module "api_gateway" {
 
     "GET /doctors" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -448,14 +470,14 @@ module "api_gateway" {
 
     "GET /dev/doctors" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "GET /demo/doctors" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -463,7 +485,7 @@ module "api_gateway" {
 
     "POST /doctor/diagnostic/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -471,14 +493,14 @@ module "api_gateway" {
 
     "POST /dev/doctor/diagnostic/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "POST /demo/doctor/diagnostic/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -486,7 +508,7 @@ module "api_gateway" {
 
     "GET /doctor/diagnostic/waiting" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -494,14 +516,14 @@ module "api_gateway" {
 
     "GET /dev/doctor/diagnostic/waiting" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "GET /demo/doctor/diagnostic/waiting" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -509,7 +531,7 @@ module "api_gateway" {
 
     "GET /dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -517,7 +539,7 @@ module "api_gateway" {
 
     "GET /demo/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -525,7 +547,7 @@ module "api_gateway" {
 
     "GET /dev/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -533,7 +555,7 @@ module "api_gateway" {
 
     "PUT /dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -541,7 +563,7 @@ module "api_gateway" {
 
     "PUT /demo/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -549,7 +571,7 @@ module "api_gateway" {
 
     "PUT /dev/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -557,7 +579,7 @@ module "api_gateway" {
 
     "POST /dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -565,7 +587,7 @@ module "api_gateway" {
 
     "POST /demo/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -573,7 +595,7 @@ module "api_gateway" {
 
     "POST /dev/dashboard/medical-info" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -581,7 +603,7 @@ module "api_gateway" {
 
     "PUT /doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -589,7 +611,7 @@ module "api_gateway" {
 
     "PUT /demo/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -597,7 +619,7 @@ module "api_gateway" {
 
     "PUT /dev/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -605,7 +627,7 @@ module "api_gateway" {
 
     "POST /push-notif" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification:prod")
+        uri = format("%s%s", var.base_lambda_arn, "pushnotification:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -613,7 +635,7 @@ module "api_gateway" {
 
     "POST /demo/push-notif" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification:demo")
+        uri = format("%s%s", var.base_lambda_arn, "pushnotification:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -621,7 +643,7 @@ module "api_gateway" {
 
     "POST /dev/push-notif" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "pushnotification")
+        uri = format("%s%s", var.base_lambda_arn, "pushnotification")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -629,7 +651,7 @@ module "api_gateway" {
 
     "POST /document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -637,7 +659,7 @@ module "api_gateway" {
 
     "POST /demo/document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -645,7 +667,7 @@ module "api_gateway" {
 
     "POST /dev/document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -653,7 +675,7 @@ module "api_gateway" {
 
     "POST /document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -661,7 +683,7 @@ module "api_gateway" {
 
     "POST /demo/document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -669,7 +691,7 @@ module "api_gateway" {
 
     "POST /dev/document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -677,7 +699,7 @@ module "api_gateway" {
 
     "POST /doctor/document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -685,7 +707,7 @@ module "api_gateway" {
 
     "POST /demo/doctor/document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -693,7 +715,7 @@ module "api_gateway" {
 
     "POST /dev/doctor/document/upload" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -701,7 +723,7 @@ module "api_gateway" {
 
     "GET /document/download/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -709,7 +731,7 @@ module "api_gateway" {
 
     "GET /demo/document/download/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -717,7 +739,7 @@ module "api_gateway" {
 
     "GET /dev/document/download/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -725,7 +747,7 @@ module "api_gateway" {
 
     "GET /document/download" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -733,7 +755,7 @@ module "api_gateway" {
 
     "GET /demo/document/download" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -741,7 +763,7 @@ module "api_gateway" {
 
     "GET /dev/document/download" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -749,7 +771,7 @@ module "api_gateway" {
 
     "GET /doctor/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -757,7 +779,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -765,7 +787,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -773,7 +795,7 @@ module "api_gateway" {
 
     "PUT /document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -781,7 +803,7 @@ module "api_gateway" {
 
     "PUT /demo/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -789,7 +811,7 @@ module "api_gateway" {
 
     "PUT /dev/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -797,7 +819,7 @@ module "api_gateway" {
 
     "DELETE /document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -805,14 +827,14 @@ module "api_gateway" {
 
     "DELETE /demo/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "DELETE /dev/document/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -820,7 +842,7 @@ module "api_gateway" {
 
     "DELETE /document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:prod")
+        uri = format("%s%s", var.base_lambda_arn, "document:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -828,7 +850,7 @@ module "api_gateway" {
 
     "DELETE /demo/document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document:demo")
+        uri = format("%s%s", var.base_lambda_arn, "document:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -836,7 +858,7 @@ module "api_gateway" {
 
     "DELETE /dev/document/favorite/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "document")
+        uri = format("%s%s", var.base_lambda_arn, "document")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -844,7 +866,7 @@ module "api_gateway" {
 
     "POST /doctor/slot" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -852,14 +874,14 @@ module "api_gateway" {
 
     "POST /demo/doctor/slot" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
     }
     "POST /dev/doctor/slot" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -867,7 +889,7 @@ module "api_gateway" {
 
     "GET /doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -875,7 +897,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -883,7 +905,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -891,7 +913,7 @@ module "api_gateway" {
 
     "GET /doctor/slots" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -899,7 +921,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/slots" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -907,7 +929,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/slots" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -915,7 +937,7 @@ module "api_gateway" {
 
     "DELETE /doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -923,7 +945,7 @@ module "api_gateway" {
 
     "DELETE /demo/doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -931,7 +953,7 @@ module "api_gateway" {
 
     "DELETE /dev/doctor/slot/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -939,7 +961,7 @@ module "api_gateway" {
 
     "POST /appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -947,7 +969,7 @@ module "api_gateway" {
 
     "POST /demo/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -955,7 +977,7 @@ module "api_gateway" {
 
     "POST /dev/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -963,7 +985,7 @@ module "api_gateway" {
 
     "POST /doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -971,7 +993,7 @@ module "api_gateway" {
 
     "POST /demo/doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -979,7 +1001,7 @@ module "api_gateway" {
 
     "POST /dev/doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -987,7 +1009,7 @@ module "api_gateway" {
 
     "PUT /appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -995,7 +1017,7 @@ module "api_gateway" {
 
     "PUT /demo/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1003,7 +1025,7 @@ module "api_gateway" {
 
     "PUT /dev/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1011,7 +1033,7 @@ module "api_gateway" {
 
     "PUT /doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1019,7 +1041,7 @@ module "api_gateway" {
 
     "PUT /demo/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1027,7 +1049,7 @@ module "api_gateway" {
 
     "PUT /dev/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1035,7 +1057,7 @@ module "api_gateway" {
 
     "GET /doctor/{id}/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1043,7 +1065,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/{id}/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1051,7 +1073,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/{id}/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1059,7 +1081,7 @@ module "api_gateway" {
 
     "GET /patient/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1067,7 +1089,7 @@ module "api_gateway" {
 
     "GET /demo/patient/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1075,7 +1097,7 @@ module "api_gateway" {
 
     "GET /dev/patient/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1083,7 +1105,7 @@ module "api_gateway" {
 
     "GET /patient/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1091,7 +1113,7 @@ module "api_gateway" {
 
     "GET /demo/patient/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1099,7 +1121,7 @@ module "api_gateway" {
 
     "GET /dev/patient/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1107,7 +1129,7 @@ module "api_gateway" {
 
     "GET /doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1115,7 +1137,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1123,7 +1145,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1131,7 +1153,7 @@ module "api_gateway" {
 
     "GET /doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1139,7 +1161,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1147,7 +1169,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/appointments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1155,7 +1177,7 @@ module "api_gateway" {
 
     "DELETE /appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1163,7 +1185,7 @@ module "api_gateway" {
 
     "DELETE /demo/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1171,7 +1193,7 @@ module "api_gateway" {
 
     "DELETE /dev/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1179,7 +1201,7 @@ module "api_gateway" {
 
     "POST /diagnostic/initiate" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1187,7 +1209,7 @@ module "api_gateway" {
 
     "POST /demo/diagnostic/initiate" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1195,7 +1217,7 @@ module "api_gateway" {
 
     "POST /dev/diagnostic/initiate" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1203,7 +1225,7 @@ module "api_gateway" {
 
     "GET /diagnostic/summary/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1211,7 +1233,7 @@ module "api_gateway" {
 
     "GET /demo/diagnostic/summary/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1219,7 +1241,7 @@ module "api_gateway" {
 
     "GET /dev/diagnostic/summary/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "diagnostic")
+        uri = format("%s%s", var.base_lambda_arn, "diagnostic")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1227,7 +1249,7 @@ module "api_gateway" {
 
     "DELETE /doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:prod")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1235,7 +1257,7 @@ module "api_gateway" {
 
     "DELETE /demo/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments:demo")
+        uri = format("%s%s", var.base_lambda_arn, "appointments:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1243,7 +1265,7 @@ module "api_gateway" {
 
     "DELETE /dev/doctor/appointments/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "appointments")
+        uri = format("%s%s", var.base_lambda_arn, "appointments")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1251,7 +1273,7 @@ module "api_gateway" {
 
     "GET /doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1259,7 +1281,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1267,7 +1289,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1275,7 +1297,7 @@ module "api_gateway" {
 
     "GET /doctor/patients" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1283,7 +1305,7 @@ module "api_gateway" {
 
     "GET /demo/doctor/patients" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1291,7 +1313,7 @@ module "api_gateway" {
 
     "GET /dev/doctor/patients" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1299,7 +1321,7 @@ module "api_gateway" {
 
     "POST /doctor/patient" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1307,7 +1329,7 @@ module "api_gateway" {
 
     "POST /demo/doctor/patient" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1315,7 +1337,7 @@ module "api_gateway" {
 
     "POST /dev/doctor/patient" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1323,7 +1345,7 @@ module "api_gateway" {
 
     "DELETE /doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:prod")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1331,7 +1353,7 @@ module "api_gateway" {
 
     "DELETE /demo/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard:demo")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1339,7 +1361,7 @@ module "api_gateway" {
 
     "DELETE /dev/doctor/patient/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "dashboard")
+        uri = format("%s%s", var.base_lambda_arn, "dashboard")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -1347,156 +1369,156 @@ module "api_gateway" {
 
     "POST /medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:prod")
         payload_format_version = "2.0"
       }
     }
 
     "POST /dev/medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+        uri = format("%s%s", var.base_lambda_arn, "medicament")
         payload_format_version = "2.0"
       }
     }
 
     "POST /demo/medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:demo")
         payload_format_version = "2.0"
       }
     }
 
     "GET /medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:prod")
         payload_format_version = "2.0"
       }
     }
 
     "GET /dev/medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+        uri = format("%s%s", var.base_lambda_arn, "medicament")
         payload_format_version = "2.0"
       }
     }
 
     "GET /demo/medicine" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:demo")
         payload_format_version = "2.0"
       }
     }
 
     "GET /medicine/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:prod")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:prod")
         payload_format_version = "2.0"
       }
     }
 
     "GET /dev/medicine/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament")
+        uri = format("%s%s", var.base_lambda_arn, "medicament")
         payload_format_version = "2.0"
       }
     }
 
     "GET /demo/medicine/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "medicament:demo")
+        uri = format("%s%s", var.base_lambda_arn, "medicament:demo")
         payload_format_version = "2.0"
       }
     }
 
     "POST /dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+        uri = format("%s%s", var.base_lambda_arn, "treatment")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
       }
     }
 
     "PUT /dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:prod")
         payload_format_version = "2.0"
       }
     }
     "PUT /dev/dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+        uri = format("%s%s", var.base_lambda_arn, "treatment")
         payload_format_version = "2.0"
       }
     }
     "PUT /demo/dashboard/treatment" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
       }
     }
     "GET /dashboard/treatments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/treatments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+        uri = format("%s%s", var.base_lambda_arn, "treatment")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/treatments" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
       }
     }
     "GET /dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+        uri = format("%s%s", var.base_lambda_arn, "treatment")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
       }
     }
 
     "DELETE /dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:prod")
         payload_format_version = "2.0"
       }
     }
     "DELETE /dev/dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment")
+        uri = format("%s%s", var.base_lambda_arn, "treatment")
         payload_format_version = "2.0"
       }
     }
     "DELETE /demo/dashboard/treatment/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1504,19 +1526,19 @@ module "api_gateway" {
 
     "POST /dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1524,19 +1546,19 @@ module "api_gateway" {
 
     "GET /dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/treatment/follow-up" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1544,19 +1566,19 @@ module "api_gateway" {
 
     "GET /dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1564,19 +1586,19 @@ module "api_gateway" {
 
     "DELETE /dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:prod")
         payload_format_version = "2.0"
       }
     }
     "DELETE /dev/dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up")
         payload_format_version = "2.0"
       }
     }
     "DELETE /demo/dashboard/treatment/follow-up/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
+        uri = format("%s%s", var.base_lambda_arn, "treatment_follow_up:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1584,19 +1606,19 @@ module "api_gateway" {
 
     "POST /ws/connection" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/connection" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/connection" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1604,19 +1626,19 @@ module "api_gateway" {
 
     "POST /ws/disconnect" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/disconnect" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/disconnect" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1624,19 +1646,19 @@ module "api_gateway" {
 
     "POST /ws/ready" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/ready" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/ready" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1644,19 +1666,19 @@ module "api_gateway" {
 
     "POST /ws/create_chat" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/create_chat" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/create_chat" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1664,19 +1686,19 @@ module "api_gateway" {
 
     "POST /ws/send_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/send_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/send_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1684,19 +1706,19 @@ module "api_gateway" {
 
     "POST /ws/get_messages" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/get_messages" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/get_messages" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1704,19 +1726,19 @@ module "api_gateway" {
 
     "POST /ws/read_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:prod")
+        uri = format("%s%s", var.base_lambda_arn, "chat:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/ws/read_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat")
+        uri = format("%s%s", var.base_lambda_arn, "chat")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/ws/read_message" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "chat:demo")
+        uri = format("%s%s", var.base_lambda_arn, "chat:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1724,19 +1746,19 @@ module "api_gateway" {
 
     "POST /dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1744,19 +1766,19 @@ module "api_gateway" {
 
     "POST /2fa/method/email" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/2fa/method/email" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/2fa/method/email" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1764,19 +1786,19 @@ module "api_gateway" {
 
     "POST /2fa/method/app-tier" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/2fa/method/app-tier" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/2fa/method/app-tier" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1784,19 +1806,19 @@ module "api_gateway" {
 
     "POST /2fa/method/mobile" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "POST /dev/2fa/method/mobile" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "POST /demo/2fa/method/mobile" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1804,19 +1826,19 @@ module "api_gateway" {
 
     "GET /dashboard/devices" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/devices" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/devices" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1824,19 +1846,19 @@ module "api_gateway" {
 
     "GET /dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "GET /dev/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "GET /demo/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1844,19 +1866,19 @@ module "api_gateway" {
 
     "DELETE /dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "DELETE /dev/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "DELETE /demo/dashboard/double_auth/{id}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1864,19 +1886,19 @@ module "api_gateway" {
 
     "DELETE /2fa/method/{ENUM}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
     "DELETE /dev/2fa/method/{ENUM}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
     "DELETE /demo/2fa/method/{ENUM}" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1885,42 +1907,42 @@ module "api_gateway" {
 
     "PUT /auth/disable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
       }
     }
 
     "PUT /dev/auth/disable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:dev")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
       }
     }
 
     "PUT /demo/auth/disable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
       }
     }
 
     "POST /auth/creation_backup_code" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
       }
     }
 
     "POST /dev/auth/creation_backup_code" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:dev")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
       }
     }
 
     "POST /demo/auth/creation_backup_code" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
       }
     }
@@ -1928,21 +1950,21 @@ module "api_gateway" {
 
     "PUT /auth/enable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:prod")
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
       }
     }
 
     "PUT /dev/auth/enable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:dev")
+        uri = format("%s%s", var.base_lambda_arn, "auth")
         payload_format_version = "2.0"
       }
     }
 
     "PUT /demo/auth/enable_account" = {
       integration = {
-        lambda_arn = format("%s%s", var.base_lambda_arn, "auth:demo")
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
       }
     }

@@ -1166,8 +1166,6 @@ variable "lambda_permissions" {
             "state_id" = "AllowDemoReadMessagePost"
         },
 
-//=============================================
-
         {
             name = "double_auth:prod",
             "route" = "POST/dashboard/double_auth/{id}",
