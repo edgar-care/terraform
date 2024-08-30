@@ -1744,26 +1744,6 @@ module "api_gateway" {
     }
     //======================================================================
 
-    "POST /dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
-        payload_format_version = "2.0"
-      }
-    }
-    "POST /dev/dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth")
-        payload_format_version = "2.0"
-      }
-    }
-    "POST /demo/dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
-        payload_format_version = "2.0"
-      }
-    }
-
-
     "POST /2fa/method/email" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
@@ -1784,19 +1764,19 @@ module "api_gateway" {
     }
 
 
-    "POST /2fa/method/app-tier" = {
+    "POST /2fa/method/third_party" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
-    "POST /dev/2fa/method/app-tier" = {
+    "POST /dev/2fa/method/third_party" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
-    "POST /demo/2fa/method/app-tier" = {
+    "POST /demo/2fa/method/third_party" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
@@ -1823,6 +1803,161 @@ module "api_gateway" {
       }
     }
 
+    "DELETE /dashboard/2fa/{ENUM}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "DELETE /dev/dashboard/2fa/{ENUM}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "DELETE /demo/dashboard/2fa/{ENUM}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "GET /dashboard/2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /dev/dashboard/2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /demo/dashboard/2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /2fa/generate_code/third_party" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "POST /dev/2fa/generate_code/third_party" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "POST /demo/2fa/generate_code/third_party" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "POST /dev/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "POST /demo/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "GET /dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /dev/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /demo/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "GET /dashboard/2fa/devices" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /dev/dashboard/2fa/devices" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /demo/dashboard/2fa/devices" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "DELETE /dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "DELETE /dev/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "DELETE /demo/dashboard/2fa/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "GET /dashboard/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /dev/dashboard/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+    "GET /demo/dashboard/device/{id}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
 
     "GET /dashboard/devices" = {
       integration = {
@@ -1844,59 +1979,19 @@ module "api_gateway" {
     }
 
 
-    "GET /dashboard/double_auth/{id}" = {
+    "DELETE /dashboard/device/{id}" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
         payload_format_version = "2.0"
       }
     }
-    "GET /dev/dashboard/double_auth/{id}" = {
+    "DELETE /dev/dashboard/device/{id}" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth")
         payload_format_version = "2.0"
       }
     }
-    "GET /demo/dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
-        payload_format_version = "2.0"
-      }
-    }
-
-
-    "DELETE /dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
-        payload_format_version = "2.0"
-      }
-    }
-    "DELETE /dev/dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth")
-        payload_format_version = "2.0"
-      }
-    }
-    "DELETE /demo/dashboard/double_auth/{id}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
-        payload_format_version = "2.0"
-      }
-    }
-
-
-    "DELETE /2fa/method/{ENUM}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
-        payload_format_version = "2.0"
-      }
-    }
-    "DELETE /dev/2fa/method/{ENUM}" = {
-      integration = {
-        uri = format("%s%s", var.base_lambda_arn, "double_auth")
-        payload_format_version = "2.0"
-      }
-    }
-    "DELETE /demo/2fa/method/{ENUM}" = {
+    "DELETE /demo/dashboard/device/{id}" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
         payload_format_version = "2.0"
@@ -1968,6 +2063,241 @@ module "api_gateway" {
         payload_format_version = "2.0"
       }
     }
+
+
+
+    "POST /auth/update_password" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/update_password" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/update_password" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /auth/sending_email" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/sending_email" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/sending_email" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /auth/email_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /dev/auth/email_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /demo/auth/email_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+
+
+    "POST /auth/backup_code_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /dev/auth/backup_code_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /demo/auth/backup_code_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+
+
+    "POST /auth/third_party_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /dev/auth/third_party_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "POST /demo/auth/third_party_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+
+
+    "POST /2fa/method/third_party/generate" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/2fa/method/third_party/generate" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/2fa/method/third_party/generate" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "double_auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+
+    "POST /auth/mobile_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/mobile_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/mobile_2fa" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /auth/ws/ready" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/ws/ready" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/ws/ready" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /auth/ws/ask_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/ws/ask_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/ws/ask_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+
+    "POST /auth/ws/response_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /dev/auth/ws/response_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /demo/auth/ws/response_mobile_connection" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
 
   }
   #hosted_zone_id         = data.aws_route53_zone.this.id

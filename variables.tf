@@ -904,7 +904,7 @@ variable "lambda_permissions" {
         {
             name = "treatment:prod",
             "route" = "POST/dashboard/treatment",
-            "state_id" = "AllowTreatmentPost"
+            "state_id" = "AllowTreatmentsPost"
         },
         {
             name = "treatment",
@@ -1147,7 +1147,7 @@ variable "lambda_permissions" {
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/get_messages",
-            "state_id" = "AllowDemoGetMessagesPost"
+            "state_id" = "AllowDemoGetMessagePost"
         },
 
         {
@@ -1166,142 +1166,224 @@ variable "lambda_permissions" {
             "state_id" = "AllowDemoReadMessagePost"
         },
 
-        {
-            name = "double_auth:prod",
-            "route" = "POST/dashboard/double_auth/{id}",
-            "state_id" = "AllowRDeleteDevicePost"
-        },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/dashboard/double_auth/{id}",
-            "state_id" = "AllowDevDeleteDevicePost"
-        },
-        {
-            name = "double_auth:demo",
-            "route" = "POST/demo/dashboard/double_auth/{id}",
-            "state_id" = "AllowDemoDeleteDevicePost"
-        },
-
+        //=================================================================
 
         {
             name = "double_auth:prod",
             "route" = "POST/2fa/method/email",
-            "state_id" = "AllowAddDoubleAutEmailPost"
+            "state_id" = "AllowMehodEmailPost"
         },
         {
             name = "double_auth",
             "route" = "POST/dev/2fa/method/email",
-            "state_id" = "AllowDevAddDoubleAutEmailPost"
+            "state_id" = "AllowMehodEmailDevPost"
         },
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/email",
-            "state_id" = "AllowDemoDAddDoubleAutEmailPost"
+            "state_id" = "AllowMehodEmailDemoPost"
         },
 
 
         {
             name = "double_auth:prod",
-            "route" = "POST/2fa/method/app-tier",
-            "state_id" = "AllowAddDoubleAuthAppTierPost"
+            "route" = "POST/2fa/method/third_party",
+            "state_id" = "AllowMehodThirdPartyPost"
         },
         {
             name = "double_auth",
-            "route" = "POST/dev/2fa/method/app-tier",
-            "state_id" = "AllowDevAddDoubleAuthAppTierPost"
+            "route" = "POST/dev/2fa/method/third_party",
+            "state_id" = "AllowMehodThirdPartyDevPost"
         },
         {
             name = "double_auth:demo",
-            "route" = "POST/demo/2fa/method/app-tier",
-            "state_id" = "AllowDemoAddDoubleAuthAppTierPost"
+            "route" = "POST/demo/2fa/method/third_party",
+            "state_id" = "AllowMehodThirdPartyDemoPost"
         },
 
 
         {
             name = "double_auth:prod",
             "route" = "POST/2fa/method/mobile",
-            "state_id" = "AllowAddDoubleMobilePost"
+            "state_id" = "AllowMehodMobilePost"
         },
         {
             name = "double_auth",
             "route" = "POST/dev/2fa/method/mobile",
-            "state_id" = "AllowDevAddDoubleMobilePost"
+            "state_id" = "AllowMehodMobileDevPost"
         },
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/mobile",
-            "state_id" = "AllowDemoAddDoubleMobilePost"
+            "state_id" = "AllowMehodMobileDemoPost"
         },
 
 
         {
             name = "double_auth:prod",
-            "route" = "GET/dashboard/devices",
+            "route" = "DELETE/dashboard/2fa/{ENUM}",
+            "state_id" = "DeleteDoubleAuth"
+        },
+        {
+            name = "double_auth",
+            "route" = "DELETE/dev/dashboard/2fa/{ENUM}",
+            "state_id" = "DeleteDevDoubleAuth"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "DELETE/demo/dashboard/2fa/{ENUM}",
+            "state_id" = "DeleteDemoDoubleAuth"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/2fa",
+            "state_id" = "AllowGetDoubleAuth"
+        },
+        {
+            name = "double_auth",
+            "route" = "GET/dev/dashboard/2fa",
+            "state_id" = "AllowDevGetDoubleAuth"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/2fa",
+            "state_id" = "AllowDemoGetDoubleAuth"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/2fa/generate_code/third_party",
+            "state_id" = "AllowGenerateCodeThirdParty"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/2fa/generate_code/third_party",
+            "state_id" = "AllowDevGenerateCodeThirdParty"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/2fa/generate_code/third_party",
+            "state_id" = "AllowDemoGenerateCodeThirdParty"
+        },
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/dashboard/2fa/device/{id}",
+            "state_id" = "AllowDeviceId"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/dashboard/2fa/device/{id}",
+            "state_id" = "AllowDevDeviceId"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/dashboard/2fa/device/{id}",
+            "state_id" = "AllowDemoDeviceId"
+        },
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/2fa/device/{id}",
+            "state_id" = "AllowGetDeviceIdGet"
+        },
+        {
+            name = "double_auth",
+            "route" = "GET/dev/dashboard/2fa/device/{id}",
+            "state_id" = "AllowDevDeviceIdGet"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/2fa/device/{id}",
+            "state_id" = "AllowDemoDeviceIdGet"
+        },
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/2fa/devices",
             "state_id" = "AllowGetDevicesGet"
         },
         {
             name = "double_auth",
+            "route" = "GET/dev/dashboard/2fa/devices",
+            "state_id" = "AllowDevDevicesGet"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/2fa/devices",
+            "state_id" = "AllowDemoDevicesGet"
+        },
+
+        {
+            name = "double_auth:prod",
+            "route" = "DELETE/dashboard/2fa/device/{id}",
+            "state_id" = "DeleteDeviceId"
+        },
+        {
+            name = "double_auth",
+            "route" = "DELETE/dev/dashboard/2fa/device/{id}",
+            "state_id" = "DeleteDevDeviceId"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "DELETE/demo/dashboard/2fa/device/{id}",
+            "state_id" = "DeleteDemoDeviceId"
+        },
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/device/{id}",
+            "state_id" = "AllowGetDeviceIdTrust"
+        },
+        {
+            name = "double_auth",
+            "route" = "GET/dev/dashboard/device/{id}",
+            "state_id" = "GetDevDeviceIdTrust"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "GET/demo/dashboard/device/{id}",
+            "state_id" = "GetDemoDeviceIdTrust"
+        },
+
+        {
+            name = "double_auth:prod",
+            "route" = "GET/dashboard/devices",
+            "state_id" = "AllowGetDevicesTrust"
+        },
+        {
+            name = "double_auth",
             "route" = "GET/dev/dashboard/devices",
-            "state_id" = "AllowDevGetDevicesGet"
+            "state_id" = "AllowDevGetDevicesTrust"
         },
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/devices",
-            "state_id" = "AllowDemoGetDevicesGet"
+            "state_id" = "AllowDemoGetDevicesTrust"
         },
-
 
         {
             name = "double_auth:prod",
-            "route" = "GET/dashboard/double_auth/{id}",
-            "state_id" = "AllowGetDeviceGet"
+            "route" = "DELETE/dashboard/device/{id}",
+            "state_id" = "DeleteDeviceIdTrust"
         },
         {
             name = "double_auth",
-            "route" = "GET/dev/dashboard/double_auth/{id}",
-            "state_id" = "AllowDevGetDeviceGet"
+            "route" = "DELETE/dev/dashboard/device/{id}",
+            "state_id" = "DeleteDevDeviceIdTrust"
         },
         {
             name = "double_auth:demo",
-            "route" = "GET/demo/dashboard/double_auth/{id}",
-            "state_id" = "AllowDemoGetDeviceGet"
+            "route" = "DELETE/demo/dashboard/device/{id}",
+            "state_id" = "DeleteDemoDeviceIdTrust"
         },
 
 
-        {
-            name = "double_auth:prod",
-            "route" = "DELETE/dashboard/double_auth/{id}",
-            "state_id" = "AllowDeleteDevice"
-        },
-        {
-            name = "double_auth",
-            "route" = "DELETE/dev/dashboard/double_auth/{id}",
-            "state_id" = "AllowDevDeleteDevice"
-        },
-        {
-            name = "double_auth:demo",
-            "route" = "DELETE/demo/dashboard/double_auth/{id}",
-            "state_id" = "AllowDemoDeleteDevice"
-        },
-
-
-        {
-            name = "double_auth:prod",
-            "route" = "DELETE/2fa/method/{ENUM}",
-            "state_id" = "AllowDisableDoubleAuth"
-        },
-        {
-            name = "double_auth",
-            "route" = "DELETE/dev/2fa/method/{ENUM}",
-            "state_id" = "AllowDevDisableDoubleAuth"
-        },
-        {
-            name = "double_auth:demo",
-            "route" = "DELETE/demo2fa/method/{ENUM}",
-            "state_id" = "AllowDemoDisableDoubleAuth"
-        },
-
-
+//=================================================================
 
         {
             name = "auth:prod",
@@ -1353,5 +1435,176 @@ variable "lambda_permissions" {
         },
 
 
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/update_password",
+            "state_id" = "AllowUpdatePassword"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/update_password",
+            "state_id" = "AllowDevUpdatePassword"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/update_password",
+            "state_id" = "AllowDemoUpdatePassword"
+        },
+
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/sending_email",
+            "state_id" = "AllowSendingEmail2fa"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/sending_email",
+            "state_id" = "AllowDevSendingEmail2fa"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/sending_email",
+            "state_id" = "AllowDemoSendingEmail2fa"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/email_2fa",
+            "state_id" = "AllowLoginEmail2fa"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/email_2fa",
+            "state_id" = "AllowDevLoginEmail2fa"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/email_2fa",
+            "state_id" = "AllowDemoLoginEmail2fa"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/backup_code_2fa",
+            "state_id" = "AllowLoginBackupCode2fa"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/backup_code_2fa",
+            "state_id" = "AllowDevLoginBackupCode2fa"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/backup_code_2fa",
+            "state_id" = "AllowDemoLoginBackupCode2fa"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/third_party_2fa",
+            "state_id" = "AllowLoginThirdParty2fa"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/third_party_2fa",
+            "state_id" = "AllowDevLoginThirdParty2fa"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/third_party_2fa",
+            "state_id" = "AllowDemoLoginThirdParty2fa"
+        },
+
+
+
+        {
+            name = "double_auth:prod",
+            "route" = "POST/2fa/method/third_party/generate",
+            "state_id" = "VerifyCodegenerateThirdParty"
+        },
+        {
+            name = "double_auth",
+            "route" = "POST/dev/2fa/method/third_party/generate",
+            "state_id" = "VerifyDevCodegenerateThirdParty"
+        },
+        {
+            name = "double_auth:demo",
+            "route" = "POST/demo/2fa/method/third_party/generate",
+            "state_id" = "VerifyDemoCodegenerateThirdParty"
+        },
+
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/mobile_2fa",
+            "state_id" = "ALoMobias"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/mobile_2fa",
+            "state_id" = "AlwDevLnMlaz"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/mobile_2fa",
+            "state_id" = "AlwDemoLogMole"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/ws/ready",
+            "state_id" = "WebStReyMoba"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/ws/ready",
+            "state_id" = "WebetRyDevMoz"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/ws/ready",
+            "state_id" = "WetRyDemoMolee"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/ws/ask_mobile_connection",
+            "state_id" = "WAsbileContionr"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/ws/ask_mobile_connection",
+            "state_id" = "WebkkDevMoeCott"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/ws/ask_mobile_connection",
+            "state_id" = "WetAskDemoMleCoony"
+        },
+
+
+        {
+            name = "auth:prod",
+            "route" = "POST/auth/ws/response_mobile_connection",
+            "state_id" = "WetResobileCotionu"
+        },
+        {
+            name = "auth",
+            "route" = "POST/dev/auth/ws/response_mobile_connection",
+            "state_id" = "WeketonseDevMobileCtioni"
+        },
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/ws/response_mobile_connection",
+            "state_id" = "WebtseDemoMleContiono"
+        },
     ]
 }
