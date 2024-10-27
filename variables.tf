@@ -52,15 +52,177 @@ variable "lambda_permissions" {
             "state_id" = "AllowDemoGraphQLAnyProxy"
         },
         {
+            name = "appointments",
+            "route" = "ANY/dev/appointments/{proxy+}",
+            "state_id" = "AllowDevAppointmentAnyProxy"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/patient/appointments/{proxy+}",
+            "state_id" = "AllowDevAppointmentPatientAnyProxy"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/patient/appointments",
+            "state_id" = "AllowDevAppointmentPatientAnyAll"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/{id}/appointments",
+            "state_id" = "AllowDevAvailableAppointmentDoctorAnyProxy"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/appointments/{proxy+}",
+            "state_id" = "AllowDevAppointmentDoctorAnyProxy"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/appointments",
+            "state_id" = "AllowDevAppointmentDoctorAnyAll"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/slot/{proxy+}",
+            "state_id" = "AllowDevSlotDoctorAnyProxy"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/slot",
+            "state_id" = "AllowDevSlotDoctorAnyOne"
+        },
+        {
+            name = "appointments",
+            "route" = "ANY/dev/doctor/slots",
+            "state_id" = "AllowDevSlotDoctorAnyAll"
+        },
+        {
+            name = "auth",
+            "route" = "ANY/dev/auth/{proxy+}",
+            "state_id" = "AllowDevAuthAnyProxy"
+        },
+        {
+            name = "chat",
+            "route" = "ANY/dev/ws/{proxy+}",
+            "state_id" = "AllowDevChatAnyProxy"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctor/patient/{proxy+}",
+            "state_id" = "AllowDevPatientAnyProxy"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctor/patient",
+            "state_id" = "AllowDevDashboardPatientAnyAll"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctor/patients",
+            "state_id" = "AllowDevDashboardPatientsAnyAll"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctor/diagnostic/{proxy+}",
+            "state_id" = "AllowDevDashboardDiagnosticAnyAll"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctor/{proxy+}",
+            "state_id" = "AllowDevDashboardDoctorAnyAll"
+        },
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/doctors",
+            "state_id" = "AllowDevDashboardDoctorsAnyAll"
+        },
+        {
+            name = "diagnostic",
+            "route" = "ANY/dev/diagnostic/{proxy+}",
+            "state_id" = "AllowDevDiagnosticAnyAll"
+        },
+        {
+            name = "document",
+            "route" = "ANY/dev/document/{proxy+}",
+            "state_id" = "AllowDevDocumentsAnyAll"
+        },
+        {
+            name = "document",
+            "route" = "ANY/dev/doctor/document/{proxy+}",
+            "state_id" = "AllowDevDoctorDocumentsAnyAll"
+        },
+        {
+            name = "double_auth",
+            "route" = "ANY/dev/2fa/{proxy+}",
+            "state_id" = "AllowDev2faAnyProxy"
+        },
+        {
+            name = "double_auth",
+            "route" = "ANY/dev/dashboard/2fa/{proxy+}",
+            "state_id" = "AllowDevDashboard2faAnyProxy"
+        },
+        {
+            name = "double_auth",
+            "route" = "ANY/dev/dashboard/2fa",
+            "state_id" = "AllowDevDashboard2faAnyOne"
+        },
+        {
+            name = "double_auth",
+            "route" = "ANY/dev/dashboard/device/{proxy+}",
+            "state_id" = "AllowDevDashboardDeviceAnyProxy"
+        },
+        {
+            name = "double_auth",
+            "route" = "ANY/dev/dashboard/devices",
+            "state_id" = "AllowDevDashboardDeviceAnyAll"
+        },
+        {
+            name = "MedicalFolder",
+            "route" = "ANY/dev/dashboard/medical-info",
+            "state_id" = "AllowDevMedicalFolderAnyAll"
+        },
+        {
+            name = "treatment",
+            "route" = "ANY/dev/dashboard/treatment/{id}",
+            "state_id" = "AllowDevTreatmentIdAnyOne"
+        },
+        {
+            name = "treatment",
+            "route" = "ANY/dev/dashboard/treatment",
+            "state_id" = "AllowDevTreatmentAnyOne"
+        },
+        {
+            name = "treatment",
+            "route" = "ANY/dev/dashboard/treatments",
+            "state_id" = "AllowDevTreatmentsAnyAll"
+        },
+        {
+            name = "treatment_follow_up",
+            "route" = "ANY/dev/dashboard/treatment/follow-up",
+            "state_id" = "AllowDevTreatmentFollowUpAnyAll"
+        },
+        {
+            name = "treatment_follow_up",
+            "route" = "ANY/dev/dashboard/treatment/follow-up/{proxy+}",
+            "state_id" = "AllowDevTreatmentFollowUpAnyProxy"
+        },
+
+        {
+            name = "dashboard",
+            "route" = "ANY/dev/dashboard/prescription",
+            "state_id" = "AllowDevPrescritionAny"
+        },
+
+
+        // OLD VERSION
+
+
+        {
             name = "auth:prod",
             "route" = "POST/auth/p/register",
             "state_id" = "AllowPRegister"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/p/register",
-            "state_id" = "AllowDevPRegister"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/p/register",
@@ -71,11 +233,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/p/login",
             "state_id" = "AllowPLogin"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/p/login",
-            "state_id" = "AllowDevPLogin"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/p/login",
@@ -86,25 +244,16 @@ variable "lambda_permissions" {
             "route" = "POST/auth/d/register",
             "state_id" = "AllowDRegister"
         } ,
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/d/register",
-            "state_id" = "AllowDevDRegister"
-        } ,
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/d/register",
             "state_id" = "AllowDemoDRegister"
         } ,
         {
-            name = "auth:prod",
-            "route" = "POST/auth/d/login",
+            name       = "auth:prod",
+            "route"    = "POST/auth/d/login",
             "state_id" = "AllowDLogin"
-        },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/d/login",
-            "state_id" = "AllowDevDLogin"
         },
         {
             name = "auth:demo",
@@ -116,11 +265,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/a/login",
             "state_id" = "AllowALogin"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/a/login",
-            "state_id" = "AllowDevALogin"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/a/login",
@@ -131,11 +276,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/a/register",
             "state_id" = "AllowARegister"
         } ,
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/a/register",
-            "state_id" = "AllowDevARegister"
-        } ,
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/a/register",
@@ -146,11 +287,7 @@ variable "lambda_permissions" {
             "route" = "POST/admin/create_account/demo",
             "state_id" = "AllowCreateDemoAccount"
         } ,
-        {
-            name = "auth",
-            "route" = "POST/dev/admin/create_account/demo",
-            "state_id" = "AllowDevCreateDemoAccount"
-        } ,
+
         {
             name = "auth:demo",
             "route" = "POST/demo/admin/create_account/demo",
@@ -161,11 +298,7 @@ variable "lambda_permissions" {
             "route" = "POST/admin/create_account/test",
             "state_id" = "AllowCreateTestAccount"
         } ,
-        {
-            name = "auth",
-            "route" = "POST/dev/admin/create_account/test",
-            "state_id" = "AllowDevCreateTestAccount"
-        } ,
+
         {
             name = "auth:demo",
             "route" = "POST/demo/admin/create_account/test",
@@ -176,11 +309,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/p/create_account",
             "state_id" = "AllowCreatePatientAccount"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/p/create_account",
-            "state_id" = "AllowDevCreatePatientAccount"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/p/create_account",
@@ -188,32 +317,24 @@ variable "lambda_permissions" {
         },
         {
             name = "auth:prod",
-            "route" = "POST/auth/p/missing-password",
+            "route" = "POST/auth/missing-password",
             "state_id" = "AllowMissingPassword"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/p/missing-password",
-            "state_id" = "AllowDevMissingPassword"
-        },
+
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/p/missing-password",
+            "route" = "POST/demo/auth/missing-password",
             "state_id" = "AllowDemoMissingPassword"
         },
         {
             name = "auth:prod",
-            "route" = "POST/auth/p/reset-password",
+            "route" = "POST/auth/reset-password",
             "state_id" = "AllowResetPassword"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/p/reset-password",
-            "state_id" = "AllowDevResetPassword"
-        },
+
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/p/reset-password",
+            "route" = "POST/demo/auth/reset-password",
             "state_id" = "AllowDemoResetPassword"
         },
         {
@@ -253,11 +374,7 @@ variable "lambda_permissions" {
             "route" = "POST/diagnostic/initiate",
             "state_id" = "AllowInitiate"
         },
-        {
-            name = "diagnostic",
-            "route" = "POST/dev/diagnostic/initiate",
-            "state_id" = "AllowDevInitiate"
-        },
+
         {
             name = "diagnostic:demo",
             "route" = "POST/demo/diagnostic/initiate",
@@ -269,11 +386,7 @@ variable "lambda_permissions" {
             "route" = "POST/diagnostic/diagnose",
             "state_id" = "AllowDiagnose"
         },
-        {
-            name = "diagnostic",
-            "route" = "POST/dev/diagnostic/diagnose",
-            "state_id" = "AllowDevDiagnose"
-        },
+
         {
             name = "diagnostic:demo",
             "route" = "POST/demo/diagnostic/diagnose",
@@ -285,11 +398,7 @@ variable "lambda_permissions" {
             "route" = "GET/diagnostic/summary/{id}",
             "state_id" = "AllowDiagnosticSummary"
         },
-        {
-            name = "diagnostic",
-            "route" = "GET/dev/diagnostic/summary/{id}",
-            "state_id" = "AllowDevDiagnosticSummary"
-        },
+
         {
             name = "diagnostic:demo",
             "route" = "GET/demo/diagnostic/summary/{id}",
@@ -301,11 +410,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/medical-info",
             "state_id" = "AllowMedicalinfoGET"
         },
-        {
-            name = "MedicalFolder",
-            "route" = "GET/dev/dashboard/medical-info",
-            "state_id" = "AllowDevMedicalinfoGET"
-        },
+
         {
             name = "MedicalFolder:demo",
             "route" = "GET/demo/dashboard/medical-info",
@@ -316,11 +421,7 @@ variable "lambda_permissions" {
             "route" = "PUT/dashboard/medical-info",
             "state_id" = "AllowMedicalinfoPUT"
         },
-        {
-            name = "MedicalFolder",
-            "route" = "PUT/dev/dashboard/medical-info",
-            "state_id" = "AllowDevMedicalinfoPUT"
-        },
+
         {
             name = "MedicalFolder:demo",
             "route" = "PUT/demo/dashboard/medical-info",
@@ -331,28 +432,20 @@ variable "lambda_permissions" {
             "route" = "POST/dashboard/medical-info",
             "state_id" = "AllowMedicalinfoPOST"
         },
-        {
-            name = "MedicalFolder",
-            "route" = "POST/dev/dashboard/medical-info",
-            "state_id" = "AllowDevMedicalinfoPOST"
-        },
+
         {
             name = "MedicalFolder:demo",
             "route" = "POST/demo/dashboard/medical-info",
             "state_id" = "AllowDemoMedicalinfoPOST"
         },
         {
-            name = "MedicalFolder:prod",
+            name = "dashboard:prod",
             "route" = "PUT/doctor/patient/{id}",
             "state_id" = "AllowMedicalinfoPUTDoctor"
         },
+
         {
-            name = "MedicalFolder",
-            "route" = "PUT/dev/doctor/patient/{id}",
-            "state_id" = "AllowDevMedicalinfoPUTDoctor"
-        },
-        {
-            name = "MedicalFolder:demo",
+            name = "dashboard:demo",
             "route" = "PUT/demo/doctor/patient/{id}",
             "state_id" = "AllowDemoMedicalinfoPUTDoctor"
         },
@@ -377,11 +470,7 @@ variable "lambda_permissions" {
             "route" = "POST/document/upload",
             "state_id" = "AllowDocumentUpload"
         },
-        {
-            name = "document",
-            "route" = "POST/dev/document/upload",
-            "state_id" = "AllowDevDocumentUpload"
-        },
+
         {
             name = "document:demo",
             "route" = "POST/demo/document/upload",
@@ -392,11 +481,7 @@ variable "lambda_permissions" {
             "route" = "POST/document/favorite/{id}",
             "state_id" = "AllowDocumentFavorite"
         },
-        {
-            name = "document",
-            "route" = "POST/dev/document/favorite/{id}",
-            "state_id" = "AllowDevDocumentFavorite"
-        },
+
         {
             name = "document:demo",
             "route" = "POST/demo/document/favorite/{id}",
@@ -407,11 +492,7 @@ variable "lambda_permissions" {
             "route" = "POST/doctor/document/upload",
             "state_id" = "AllowDocumentUploadDoctor"
         },
-        {
-            name = "document",
-            "route" = "POST/dev/doctor/document/upload",
-            "state_id" = "AllowDevDocumentUploadDoctor"
-        },
+
         {
             name = "document:demo",
             "route" = "POST/demo/doctor/document/upload",
@@ -422,11 +503,7 @@ variable "lambda_permissions" {
             "route" = "GET/document/download/{id}",
             "state_id" = "AllowDocumentDownload"
         },
-        {
-            name = "document",
-            "route" = "GET/dev/document/download/{id}",
-            "state_id" = "AllowDevDocumentDownload"
-        },
+
         {
             name = "document:demo",
             "route" = "GET/demo/document/download/{id}",
@@ -437,11 +514,7 @@ variable "lambda_permissions" {
             "route" = "GET/document/download",
             "state_id" = "AllowAllDocumentDownload"
         },
-        {
-            name = "document",
-            "route" = "GET/dev/document/download",
-            "state_id" = "AllowDevAllDocumentDownload"
-        },
+
         {
             name = "document:demo",
             "route" = "GET/demo/document/download",
@@ -452,11 +525,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/document/{id}",
             "state_id" = "AllowAllDocumentDoctorDownload"
         },
-        {
-            name = "document",
-            "route" = "GET/dev/doctor/document/{id}",
-            "state_id" = "AllowDevAllDocumentDoctorDownload"
-        },
+
         {
             name = "document:demo",
             "route" = "GET/demo/doctor/document/{id}",
@@ -467,11 +536,7 @@ variable "lambda_permissions" {
             "route" = "PUT/document/{id}",
             "state_id" = "AllowDocumentUpdate"
         },
-        {
-            name = "document",
-            "route" = "PUT/dev/document/{id}",
-            "state_id" = "AllowDevDocumentUpdate"
-        },
+
         {
             name = "document:demo",
             "route" = "PUT/demo/document/{id}",
@@ -482,11 +547,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/document/{id}",
             "state_id" = "AllowDocumentDELETE"
         },
-        {
-            name = "document",
-            "route" = "DELETE/dev/document/{id}",
-            "state_id" = "AllowDevDocumentDELETE"
-        },
+
         {
             name = "document:demo",
             "route" = "DELETE/demo/document/{id}",
@@ -497,11 +558,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/document/favorite/{id}",
             "state_id" = "AllowDocumentFavDELETE"
         },
-        {
-            name = "document",
-            "route" = "DELETE/dev/document/favorite/{id}",
-            "state_id" = "AllowDevDocumentFavDELETE"
-        },
+
         {
             name = "document:demo",
             "route" = "DELETE/demo/document/favorite/{id}",
@@ -513,11 +570,7 @@ variable "lambda_permissions" {
             "route" = "POST/doctor/slot",
             "state_id" = "AllowAppointmentsSlot"
         },
-        {
-            name = "appointments",
-            "route" = "POST/dev/doctor/slot",
-            "state_id" = "AllowDevAppointmentsSlot"
-        },
+
         {
             name = "appointments:demo",
             "route" = "POST/demo/doctor/slot",
@@ -527,11 +580,6 @@ variable "lambda_permissions" {
             name = "appointments:prod",
             "route" = "GET/doctor/slot/{id}",
             "state_id" = "AllowAppointmentsSlotGETOne"
-        },
-        {
-            name = "appointments",
-            "route" = "GET/dev/doctor/slot/{id}",
-            "state_id" = "AllowDevAppointmentsSlotGETOne"
         },
         {
             name = "appointments:demo",
@@ -544,11 +592,6 @@ variable "lambda_permissions" {
             "state_id" = "AllowAppointmentsSlotGET"
         },
         {
-            name = "appointments",
-            "route" = "GET/dev/doctor/slots",
-            "state_id" = "AllowDevAppointmentsSlotGET"
-        },
-        {
             name = "appointments:demo",
             "route" = "GET/demo/doctor/slots",
             "state_id" = "AllowDemoAppointmentsSlotGET"
@@ -557,11 +600,6 @@ variable "lambda_permissions" {
             name = "appointments:prod",
             "route" = "DELETE/doctor/slot/{id}",
             "state_id" = "AllowAppointmentsSlotDELETE"
-        },
-        {
-            name = "appointments",
-            "route" = "DELETE/dev/doctor/slot/{id}",
-            "state_id" = "AllowDevAppointmentsSlotDELETE"
         },
         {
             name = "appointments:demo",
@@ -574,11 +612,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/doctor/appointments/{id}",
             "state_id" = "AllowAppointmentsDELETEDoctor"
         },
-        {
-            name = "appointments",
-            "route" = "DELETE/dev/doctor/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsDELETEDoctor"
-        },
+
         {
             name = "appointments:demo",
             "route" = "DELETE/demo/doctor/appointments/{id}",
@@ -590,11 +624,7 @@ variable "lambda_permissions" {
             "route" = "POST/appointments/{id}",
             "state_id" = "AllowAppointments"
         },
-        {
-            name = "appointments",
-            "route" = "POST/dev/appointments/{id}",
-            "state_id" = "AllowDevAppointments"
-        },
+
         {
             name = "appointments:demo",
             "route" = "POST/demo/appointments/{id}",
@@ -606,11 +636,6 @@ variable "lambda_permissions" {
             "state_id" = "AllowAppointmentsDoctor"
         },
         {
-            name = "appointments",
-            "route" = "POST/dev/doctor/appointments",
-            "state_id" = "AllowDevAppointmentsDoctor"
-        },
-        {
             name = "appointments:demo",
             "route" = "POST/demo/doctor/appointments",
             "state_id" = "AllowDemoAppointmentsDoctor"
@@ -620,11 +645,7 @@ variable "lambda_permissions" {
             "route" = "PUT/appointments/{id}",
             "state_id" = "AllowAppointmentsModify"
         },
-        {
-            name = "appointments",
-            "route" = "PUT/dev/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsModify"
-        },
+
         {
             name = "appointments:demo",
             "route" = "PUT/demo/appointments/{id}",
@@ -635,11 +656,7 @@ variable "lambda_permissions" {
             "route" = "PUT/doctor/appointments/{id}",
             "state_id" = "AllowAppointmentsDoctorModify"
         },
-        {
-            name = "appointments",
-            "route" = "PUT/dev/doctor/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsDoctorModify"
-        },
+
         {
             name = "appointments:demo",
             "route" = "PUT/demo/doctor/appointments/{id}",
@@ -650,11 +667,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/{id}/appointments",
             "state_id" = "AllowAppointmentsGETDoctor"
         },
-        {
-            name = "appointments",
-            "route" = "GET/dev/doctor/{id}/appointments",
-            "state_id" = "AllowDevAppointmentsGETDoctor"
-        },
+
         {
             name = "appointments:demo",
             "route" = "GET/demo/doctor/{id}/appointments",
@@ -665,11 +678,7 @@ variable "lambda_permissions" {
             "route" = "GET/patient/appointments",
             "state_id" = "AllowAppointmentsGETAll"
         },
-        {
-            name = "appointments",
-            "route" = "GET/dev/patient/appointments",
-            "state_id" = "AllowDevAppointmentsGETAll"
-        },
+
         {
             name = "appointments:demo",
             "route" = "GET/demo/patient/appointments",
@@ -680,11 +689,7 @@ variable "lambda_permissions" {
             "route" = "GET/patient/appointments/{id}",
             "state_id" = "AllowAppointmentsGETOne"
         },
-        {
-            name = "appointments",
-            "route" = "GET/dev/patient/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsGETOne"
-        },
+
         {
             name = "appointments:demo",
             "route" = "GET/demo/patient/appointments/{id}",
@@ -695,11 +700,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/appointments/{id}",
             "state_id" = "AllowAppointmentsGETDoctorOne"
         },
-        {
-            name = "appointments",
-            "route" = "GET/dev/doctor/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsGETDoctorOne"
-        },
+
         {
             name = "appointments:demo",
             "route" = "GET/demo/doctor/appointments/{id}",
@@ -710,11 +711,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/appointments",
             "state_id" = "AllowAppointmentsGETDoctorAll"
         },
-        {
-            name = "appointments",
-            "route" = "GET/dev/doctor/appointments",
-            "state_id" = "AllowDevAppointmentsGETDoctorAll"
-        },
+
         {
             name = "appointments:demo",
             "route" = "GET/demo/doctor/appointments",
@@ -725,11 +722,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/appointments/{id}",
             "state_id" = "AllowAppointmentsDELETE"
         },
-        {
-            name = "appointments",
-            "route" = "DELETE/dev/appointments/{id}",
-            "state_id" = "AllowDevAppointmentsDELETE"
-        },
+
         {
             name = "appointments:demo",
             "route" = "DELETE/demo/appointments/{id}",
@@ -740,11 +733,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/patients",
             "state_id" = "AllowDashboardGetAll"
         },
-        {
-            name = "dashboard",
-            "route" = "GET/dev/doctor/patients",
-            "state_id" = "AllowDevDashboardGetAll"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "GET/demo/doctor/patients",
@@ -755,11 +744,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/patient/{id}",
             "state_id" = "AllowDashboardGetone"
         },
-        {
-            name = "dashboard",
-            "route" = "GET/dev/doctor/patient/{id}",
-            "state_id" = "AllowDevDashboardGetone"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "GET/demo/doctor/patient/{id}",
@@ -770,11 +755,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/doctor/patient/{id}",
             "state_id" = "AllowDashboardDeleteone"
         },
-        {
-            name = "dashboard",
-            "route" = "DELETE/dev/doctor/patient/{id}",
-            "state_id" = "AllowDevDashboardDeleteone"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "DELETE/demo/doctor/patient/{id}",
@@ -785,11 +766,7 @@ variable "lambda_permissions" {
             "route" = "POST/doctor/patient",
             "state_id" = "AllowDashboardPost"
         },
-        {
-            name = "dashboard",
-            "route" = "POST/dev/doctor/patient",
-            "state_id" = "AllowDevDashboardPost"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "POST/demo/doctor/patient",
@@ -800,11 +777,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/{id}",
             "state_id" = "AllowDoctorId"
         },
-        {
-            name = "dashboard",
-            "route" = "GET/dev/doctor/{id}",
-            "state_id" = "AllowDevDoctorId"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "GET/demo/doctor/{id}",
@@ -815,11 +788,7 @@ variable "lambda_permissions" {
             "route" = "GET/doctors",
             "state_id" = "AllowDoctors"
         },
-        {
-            name = "dashboard",
-            "route" = "GET/dev/doctors",
-            "state_id" = "AllowDevDoctors"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "GET/demo/doctors",
@@ -830,11 +799,7 @@ variable "lambda_permissions" {
             "route" = "POST/doctor/diagnostic/{id}",
             "state_id" = "AllowDoctorDiagnosticId"
         },
-        {
-            name = "dashboard",
-            "route" = "POST/dev/doctor/diagnostic/{id}",
-            "state_id" = "AllowDevDoctorDiagnosticId"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "POST/demo/doctor/diagnostic/{id}",
@@ -845,26 +810,28 @@ variable "lambda_permissions" {
             "route" = "GET/doctor/diagnostic/waiting",
             "state_id" = "AllowDoctorDiagnosticWaiting"
         },
-        {
-            name = "dashboard",
-            "route" = "GET/dev/doctor/diagnostic/waiting",
-            "state_id" = "AllowDevDoctorDiagnosticWaiting"
-        },
+
         {
             name = "dashboard:demo",
             "route" = "GET/demo/doctor/diagnostic/waiting",
             "state_id" = "AllowDemoDoctorDiagnosticWaiting"
         },
         {
+            name = "medicament",
+            "route" = "ANY/dev/medicine/{proxy+}",
+            "state_id" = "AllowDevMedicamentAnyProxy"
+        },
+        {
+            name = "medicament",
+            "route" = "ANY/dev/medicine",
+            "state_id" = "AllowDevMedicamentAny"
+        },
+        {
             name = "medicament:prod",
             "route" = "POST/medicine",
             "state_id" = "AllowMedicamentPost"
         },
-        {
-            name = "medicament",
-            "route" = "POST/dev/medicine",
-            "state_id" = "AllowDevMedicamentPost"
-        },
+
         {
             name = "medicament:demo",
             "route" = "POST/demo/medicine",
@@ -875,11 +842,7 @@ variable "lambda_permissions" {
             "route" = "GET/medicine",
             "state_id" = "AllowMedicamentGET"
         },
-        {
-            name = "medicament",
-            "route" = "GET/dev/medicine",
-            "state_id" = "AllowDevMedicamentGET"
-        },
+
         {
             name = "medicament:demo",
             "route" = "GET/demo/medicine",
@@ -890,11 +853,7 @@ variable "lambda_permissions" {
             "route" = "GET/medicine/{id}",
             "state_id" = "AllowMedicamentGetOne"
         },
-        {
-            name = "medicament",
-            "route" = "GET/dev/medicine/{id}",
-            "state_id" = "AllowDevMedicamentGetOne"
-        },
+
         {
             name = "medicament:demo",
             "route" = "GET/demo/medicine/{id}",
@@ -906,11 +865,7 @@ variable "lambda_permissions" {
             "route" = "POST/dashboard/treatment",
             "state_id" = "AllowTreatmentsPost"
         },
-        {
-            name = "treatment",
-            "route" = "POST/dev/dashboard/treatment",
-            "state_id" = "AllowDevTreatmentPost"
-        },
+
         {
             name = "treatment:demo",
             "route" = "POST/demo/dashboard/treatment",
@@ -921,11 +876,7 @@ variable "lambda_permissions" {
             "route" = "PUT/dashboard/treatment",
             "state_id" = "AllowTreatmentPut"
         },
-        {
-            name = "treatment",
-            "route" = "PUT/dev/dashboard/treatment",
-            "state_id" = "AllowDevTreatmentPut"
-        },
+
         {
             name = "treatment:demo",
             "route" = "PUT/demo/dashboard/treatment",
@@ -937,11 +888,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/treatments",
             "state_id" = "AllowTreatmentGetAll"
         },
-        {
-            name = "treatment",
-            "route" = "GET/dev/dashboard/treatments",
-            "state_id" = "AllowDevTreatmentGetAll"
-        },
+
         {
             name = "treatment:demo",
             "route" = "GET/demo/dashboard/treatments",
@@ -953,11 +900,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/treatment/{id}",
             "state_id" = "AllowTreatmentGetOne"
         },
-        {
-            name = "treatment",
-            "route" = "GET/dev/dashboard/treatment/{id}",
-            "state_id" = "AllowDevTreatmentGetOne"
-        },
+
         {
             name = "treatment:demo",
             "route" = "GET/demo/dashboard/treatment/{id}",
@@ -969,11 +912,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/dashboard/treatment/{id}",
             "state_id" = "AllowTreatmentDelete"
         },
-        {
-            name = "treatment",
-            "route" = "DELETE/dev/dashboard/treatment/{id}",
-            "state_id" = "AllowDevTreatmentDelete"
-        },
+
         {
             name = "treatment:demo",
             "route" = "DELETE/demo/dashboard/treatment/{id}",
@@ -986,11 +925,7 @@ variable "lambda_permissions" {
             "route" = "POST/dashboard/treatment/follow-up",
             "state_id" = "AllowTreatmentFollowPost"
         },
-        {
-            name = "treatment_follow_up",
-            "route" = "POST/dev/dashboard/treatment/follow-up",
-            "state_id" = "AllowDevTreatmentFollowPost"
-        },
+
         {
             name = "treatment_follow_up:demo",
             "route" = "POST/demo/dashboard/treatment/follow-up",
@@ -1002,11 +937,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/treatment/follow-up",
             "state_id" = "AllowTreatmentFollowGetALl"
         },
-        {
-            name = "treatment_follow_up",
-            "route" = "GET/dev/dashboard/treatment/follow-up",
-            "state_id" = "AllowDevTreatmentFollowGetAll"
-        },
+
         {
             name = "treatment_follow_up:demo",
             "route" = "GET/demo/dashboard/treatment/follow-up",
@@ -1018,11 +949,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowTreatmentFollowGetOne"
         },
-        {
-            name = "treatment_follow_up",
-            "route" = "GET/dev/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDevTreatmentFollowGetOne"
-        },
+
         {
             name = "treatment_follow_up:demo",
             "route" = "GET/demo/dashboard/treatment/follow-up/{id}",
@@ -1035,11 +962,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/dashboard/treatment/follow-up/{id}",
             "state_id" = "AllowTreatmentFollowDelete"
         },
-        {
-            name = "treatment_follow_up",
-            "route" = "DELETE/dev/dashboard/treatment/follow-up/{id}",
-            "state_id" = "AllowDevTreatmentFollowDelete"
-        },
+
         {
             name = "treatment_follow_up:demo",
             "route" = "DELETE/demo/dashboard/treatment/follow-up/{id}",
@@ -1047,17 +970,10 @@ variable "lambda_permissions" {
         },
 
 
-
-
         {
-            name = "chat:prod",
-            "route" = "POST/ws/connection",
+            name       = "chat:prod",
+            "route"    = "POST/ws/connection",
             "state_id" = "AllowConnectionPost"
-        },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/connection",
-            "state_id" = "AllowDevConnectionPost"
         },
         {
             name = "chat:demo",
@@ -1071,11 +987,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/disconnect",
             "state_id" = "AllowDisconnectPost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/disconnect",
-            "state_id" = "AllowDevDisconnectPost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/disconnect",
@@ -1087,11 +999,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/ready",
             "state_id" = "AllowReadyPost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/ready",
-            "state_id" = "AllowDevReadyPost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/ready",
@@ -1104,11 +1012,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/create_chat",
             "state_id" = "AllowCreateChatPost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/create_chat",
-            "state_id" = "AllowDevCreateChatPost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/create_chat",
@@ -1121,11 +1025,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/send_message",
             "state_id" = "AllowSendMessagePost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/send_message",
-            "state_id" = "AllowDevSendMessagePost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/send_message",
@@ -1139,11 +1039,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/get_messages",
             "state_id" = "AllowGetMessagesPost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/get_messages",
-            "state_id" = "AllowDevGetMessagesPost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/get_messages",
@@ -1155,11 +1051,7 @@ variable "lambda_permissions" {
             "route" = "POST/ws/read_message",
             "state_id" = "AllowReadMessagePost"
         },
-        {
-            name = "chat",
-            "route" = "POST/dev/ws/read_message",
-            "state_id" = "AllowDevReadMessagePost"
-        },
+
         {
             name = "chat:demo",
             "route" = "POST/demo/ws/read_message",
@@ -1173,11 +1065,7 @@ variable "lambda_permissions" {
             "route" = "POST/2fa/method/email",
             "state_id" = "AllowMehodEmailPost"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/2fa/method/email",
-            "state_id" = "AllowMehodEmailDevPost"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/email",
@@ -1190,11 +1078,7 @@ variable "lambda_permissions" {
             "route" = "POST/2fa/method/third_party",
             "state_id" = "AllowMehodThirdPartyPost"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/2fa/method/third_party",
-            "state_id" = "AllowMehodThirdPartyDevPost"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/third_party",
@@ -1207,11 +1091,7 @@ variable "lambda_permissions" {
             "route" = "POST/2fa/method/mobile",
             "state_id" = "AllowMehodMobilePost"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/2fa/method/mobile",
-            "state_id" = "AllowMehodMobileDevPost"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/mobile",
@@ -1224,11 +1104,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/dashboard/2fa/{ENUM}",
             "state_id" = "DeleteDoubleAuth"
         },
-        {
-            name = "double_auth",
-            "route" = "DELETE/dev/dashboard/2fa/{ENUM}",
-            "state_id" = "DeleteDevDoubleAuth"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "DELETE/demo/dashboard/2fa/{ENUM}",
@@ -1241,11 +1117,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/2fa",
             "state_id" = "AllowGetDoubleAuth"
         },
-        {
-            name = "double_auth",
-            "route" = "GET/dev/dashboard/2fa",
-            "state_id" = "AllowDevGetDoubleAuth"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/2fa",
@@ -1258,11 +1130,7 @@ variable "lambda_permissions" {
             "route" = "POST/2fa/generate_code/third_party",
             "state_id" = "AllowGenerateCodeThirdParty"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/2fa/generate_code/third_party",
-            "state_id" = "AllowDevGenerateCodeThirdParty"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/generate_code/third_party",
@@ -1275,11 +1143,7 @@ variable "lambda_permissions" {
             "route" = "POST/dashboard/2fa/device/{id}",
             "state_id" = "AllowDeviceId"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/dashboard/2fa/device/{id}",
-            "state_id" = "AllowDevDeviceId"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/dashboard/2fa/device/{id}",
@@ -1291,11 +1155,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/2fa/device/{id}",
             "state_id" = "AllowGetDeviceIdGet"
         },
-        {
-            name = "double_auth",
-            "route" = "GET/dev/dashboard/2fa/device/{id}",
-            "state_id" = "AllowDevDeviceIdGet"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/2fa/device/{id}",
@@ -1307,11 +1167,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/2fa/devices",
             "state_id" = "AllowGetDevicesGet"
         },
-        {
-            name = "double_auth",
-            "route" = "GET/dev/dashboard/2fa/devices",
-            "state_id" = "AllowDevDevicesGet"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/2fa/devices",
@@ -1323,11 +1179,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/dashboard/2fa/device/{id}",
             "state_id" = "DeleteDeviceId"
         },
-        {
-            name = "double_auth",
-            "route" = "DELETE/dev/dashboard/2fa/device/{id}",
-            "state_id" = "DeleteDevDeviceId"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "DELETE/demo/dashboard/2fa/device/{id}",
@@ -1339,11 +1191,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/device/{id}",
             "state_id" = "AllowGetDeviceIdTrust"
         },
-        {
-            name = "double_auth",
-            "route" = "GET/dev/dashboard/device/{id}",
-            "state_id" = "GetDevDeviceIdTrust"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/device/{id}",
@@ -1355,11 +1203,7 @@ variable "lambda_permissions" {
             "route" = "GET/dashboard/devices",
             "state_id" = "AllowGetDevicesTrust"
         },
-        {
-            name = "double_auth",
-            "route" = "GET/dev/dashboard/devices",
-            "state_id" = "AllowDevGetDevicesTrust"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "GET/demo/dashboard/devices",
@@ -1371,11 +1215,7 @@ variable "lambda_permissions" {
             "route" = "DELETE/dashboard/device/{id}",
             "state_id" = "DeleteDeviceIdTrust"
         },
-        {
-            name = "double_auth",
-            "route" = "DELETE/dev/dashboard/device/{id}",
-            "state_id" = "DeleteDevDeviceIdTrust"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "DELETE/demo/dashboard/device/{id}",
@@ -1390,11 +1230,7 @@ variable "lambda_permissions" {
             "route" = "PUT/auth/disable_account",
             "state_id" = "AllowDisableAccount"
         },
-        {
-            name = "auth",
-            "route" = "PUT/dev/auth/disable_account",
-            "state_id" = "AllowDevDisableAccount"
-        },
+
         {
             name = "auth:demo",
             "route" = "PUT/demo/auth/disable_account",
@@ -1406,11 +1242,7 @@ variable "lambda_permissions" {
             "route" = "PUT/auth/enable_account",
             "state_id" = "AllowEnableAccount"
         },
-        {
-            name = "auth",
-            "route" = "PUT/dev/auth/enable_account",
-            "state_id" = "AllowDevEnableAccount"
-        },
+
         {
             name = "auth:demo",
             "route" = "PUT/demo/auth/enable_account",
@@ -1423,11 +1255,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/creation_backup_code",
             "state_id" = "AllowECreateBackupCode"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/creation_backup_code",
-            "state_id" = "AllowDevCreateBackupCode"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/creation_backup_code",
@@ -1440,11 +1268,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/update_password",
             "state_id" = "AllowUpdatePassword"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/update_password",
-            "state_id" = "AllowDevUpdatePassword"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/update_password",
@@ -1458,11 +1282,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/sending_email",
             "state_id" = "AllowSendingEmail2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/sending_email",
-            "state_id" = "AllowDevSendingEmail2fa"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/sending_email",
@@ -1475,11 +1295,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/email_2fa",
             "state_id" = "AllowLoginEmail2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/email_2fa",
-            "state_id" = "AllowDevLoginEmail2fa"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/email_2fa",
@@ -1488,14 +1304,9 @@ variable "lambda_permissions" {
 
 
         {
-            name = "auth:prod",
-            "route" = "POST/auth/backup_code_2fa",
+            name       = "auth:prod",
+            "route"    = "POST/auth/backup_code_2fa",
             "state_id" = "AllowLoginBackupCode2fa"
-        },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/backup_code_2fa",
-            "state_id" = "AllowDevLoginBackupCode2fa"
         },
         {
             name = "auth:demo",
@@ -1509,11 +1320,7 @@ variable "lambda_permissions" {
             "route" = "POST/auth/third_party_2fa",
             "state_id" = "AllowLoginThirdParty2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/third_party_2fa",
-            "state_id" = "AllowDevLoginThirdParty2fa"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/third_party_2fa",
@@ -1527,84 +1334,121 @@ variable "lambda_permissions" {
             "route" = "POST/2fa/method/third_party/generate",
             "state_id" = "VerifyCodegenerateThirdParty"
         },
-        {
-            name = "double_auth",
-            "route" = "POST/dev/2fa/method/third_party/generate",
-            "state_id" = "VerifyDevCodegenerateThirdParty"
-        },
+
         {
             name = "double_auth:demo",
             "route" = "POST/demo/2fa/method/third_party/generate",
             "state_id" = "VerifyDemoCodegenerateThirdParty"
         },
-
-
-
         {
             name = "auth:prod",
             "route" = "POST/auth/mobile_2fa",
-            "state_id" = "ALoMobias"
+            "state_id" = "AllowProdMobile2faLog"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/mobile_2fa",
-            "state_id" = "AlwDevLnMlaz"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/mobile_2fa",
-            "state_id" = "AlwDemoLogMole"
+            "state_id" = "AllowDemoMobile2faLog"
         },
-
 
         {
             name = "auth:prod",
             "route" = "POST/auth/ws/ready",
-            "state_id" = "WebStReyMoba"
+            "state_id" = "WebsocketProdReady2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/ws/ready",
-            "state_id" = "WebetRyDevMoz"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/ws/ready",
-            "state_id" = "WetRyDemoMolee"
+            "state_id" = "WebsockerDemoReady2fa"
         },
-
 
         {
             name = "auth:prod",
             "route" = "POST/auth/ws/ask_mobile_connection",
-            "state_id" = "WAsbileContionr"
+            "state_id" = "WebsockerProdAskMobile2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/ws/ask_mobile_connection",
-            "state_id" = "WebkkDevMoeCott"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/ws/ask_mobile_connection",
-            "state_id" = "WetAskDemoMleCoony"
+            "state_id" = "WebsockerDemoAskMobile2fa"
         },
-
 
         {
             name = "auth:prod",
             "route" = "POST/auth/ws/response_mobile_connection",
-            "state_id" = "WetResobileCotionu"
+            "state_id" = "WebsocketProdResponse2fa"
         },
-        {
-            name = "auth",
-            "route" = "POST/dev/auth/ws/response_mobile_connection",
-            "state_id" = "WeketonseDevMobileCtioni"
-        },
+
         {
             name = "auth:demo",
             "route" = "POST/demo/auth/ws/response_mobile_connection",
-            "state_id" = "WebtseDemoMleContiono"
+            "state_id" = "WebsocketDemoResponse2fa"
         },
+
+
+        {
+            name = "dashboard:prod",
+            "route" = "POST/dashboard/prescription",
+            "state_id" = "AllowProdPrescriptionPost"
+        },
+
+        {
+            name = "dashboard:demo",
+            "route" = "POST/demo/dashboard/prescription",
+            "state_id" = "AllowDemoPrescriptionPost"
+        },
+
+        {
+            name = "dashboard:prod",
+            "route" = "GET/dashboard/prescription",
+            "state_id" = "AllowProdPrescriptionGet"
+        },
+
+        {
+            name = "dashboard:demo",
+            "route" = "GET/demo/dashboard/prescription",
+            "state_id" = "AllowDemoPrescriptionGet"
+        },
+
+        {
+            name = "dashboard",
+            "route" = "GET/dev/dashboard/prescription/{id}",
+            "state_id" = "AllowDevPrescriptionGetById"
+        },
+
+        {
+            name = "dashboard:prod",
+            "route" = "GET/dashboard/prescription/{id}",
+            "state_id" = "AllowProdPrescriptionGetByID"
+        },
+
+        {
+            name = "dashboard:demo",
+            "route" = "GET/demo/dashboard/prescription/{id}",
+            "state_id" = "AllowDemoPrescriptionGetByid"
+        },
+
+
+        {
+            name = "MedicalFolder",
+            "route" = "GET/dev/dashboard/medical-info/disease/{name}",
+            "state_id" = "AllowGetDiseaseDevByName"
+        },
+
+        {
+            name = "MedicalFolder:prod",
+            "route" = "GET/dashboard/medical-info/disease/{name}",
+            "state_id" = "AllowGetDiseaseProdByName"
+        },
+
+        {
+            name = "MedicalFolder:demo",
+            "route" = "GET/demo/dashboard/medical-info/disease/{name}",
+            "state_id" = "AllowGetDiseaseDemoByName"
+        },
+
     ]
 }
