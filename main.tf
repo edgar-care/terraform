@@ -223,7 +223,7 @@ module "api_gateway" {
         }
     }
 
-    "ANY /dev/doctor/{proxy}" = {
+    "ANY /dev/doctor/{proxy+}" = {
         integration = {
             uri = format("%s%s", var.base_lambda_arn, "dashboard")
             payload_format_version = "2.0"
@@ -311,6 +311,42 @@ module "api_gateway" {
             timeout_milliseconds   = 12000
         }
     }
+
+    "ANY /dev/dashboard/medical-antecedent" = {
+        integration = {
+            uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+            payload_format_version = "2.0"
+            timeout_milliseconds   = 12000
+        }
+    }
+
+    "ANY /dev/dashboard/medical-antecedent/{proxy+}" = {
+        integration = {
+            uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+            payload_format_version = "2.0"
+            timeout_milliseconds   = 12000
+        }
+    }
+
+
+
+    "ANY /demo/dashboard/medical-antecedent" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "ANY /demo/dashboard/medical-antecedent/{proxy+}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+
 
     "ANY /dev/dashboard/treatment/{id}" = {
         integration = {
@@ -1367,7 +1403,7 @@ module "api_gateway" {
       }
     }
 
-    "PUT /demo/dashboard/treatment" = {
+    "PUT /demo/dashboard/treatment/{id}" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "treatment:demo")
         payload_format_version = "2.0"
@@ -1848,7 +1884,7 @@ module "api_gateway" {
     }
 
 
-    "POST /auth/email_2fa" = {
+    "POST /auth/{type}/email_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -1857,7 +1893,7 @@ module "api_gateway" {
     }
 
 
-    "POST /demo/auth/email_2fa" = {
+    "POST /demo/auth/{type}/email_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
@@ -1867,7 +1903,7 @@ module "api_gateway" {
 
 
 
-    "POST /auth/backup_code_2fa" = {
+    "POST /auth/{type}/backup_code_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -1877,7 +1913,7 @@ module "api_gateway" {
 
 
 
-    "POST /demo/auth/backup_code_2fa" = {
+    "POST /demo/auth/{type}/backup_code_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
@@ -1887,7 +1923,7 @@ module "api_gateway" {
 
 
 
-    "POST /auth/third_party_2fa" = {
+    "POST /auth/{type}/third_party_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -1895,7 +1931,7 @@ module "api_gateway" {
       }
     }
 
-    "POST /demo/auth/third_party_2fa" = {
+    "POST /demo/auth/{type}/third_party_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
@@ -1919,7 +1955,7 @@ module "api_gateway" {
       }
     }
 
-    "POST /auth/mobile_2fa" = {
+    "POST /auth/{type}/mobile_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -1927,7 +1963,7 @@ module "api_gateway" {
     }
 
 
-    "POST /demo/auth/mobile_2fa" = {
+    "POST /demo/auth/{type}/mobile_2fa" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"

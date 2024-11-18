@@ -182,6 +182,30 @@ variable "lambda_permissions" {
             "state_id" = "AllowDevMedicalFolderAnyAll"
         },
         {
+            name = "MedicalFolder",
+            "route" = "ANY/dev/dashboard/medical-antecedent",
+            "state_id" = "AllowDevMedicalAntecedentAnyAll"
+        },
+
+        {
+            name = "MedicalFolder",
+            "route" = "ANY/dev/dashboard/medical-antecedent/{proxy+}",
+            "state_id" = "AllowDevMedicalAntecedentAnyProxy"
+        },
+
+        {
+            name = "MedicalFolder",
+            "route" = "ANY/demo/dashboard/medical-antecedent",
+            "state_id" = "AllowDemoMedicalAntecedentAnyAll"
+        },
+
+        {
+            name = "MedicalFolder",
+            "route" = "ANY/demo/dashboard/medical-antecedent/{proxy+}",
+            "state_id" = "AllowDemoMedicalAntecedentAnyProxy"
+        },
+
+        {
             name = "treatment",
             "route" = "ANY/dev/dashboard/treatment/{id}",
             "state_id" = "AllowDevTreatmentIdAnyOne"
@@ -879,7 +903,7 @@ variable "lambda_permissions" {
 
         {
             name = "treatment:demo",
-            "route" = "PUT/demo/dashboard/treatment",
+            "route" = "PUT/demo/dashboard/treatment/{id}",
             "state_id" = "AllowDemoTreatmentPut"
         },
 
@@ -1292,38 +1316,38 @@ variable "lambda_permissions" {
 
         {
             name = "auth:prod",
-            "route" = "POST/auth/email_2fa",
+            "route" = "POST/auth/{type}/email_2fa",
             "state_id" = "AllowLoginEmail2fa"
         },
 
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/email_2fa",
+            "route" = "POST/demo/auth/{type}/email_2fa",
             "state_id" = "AllowDemoLoginEmail2fa"
         },
 
 
         {
             name       = "auth:prod",
-            "route"    = "POST/auth/backup_code_2fa",
+            "route"    = "POST/auth/{type}/backup_code_2fa",
             "state_id" = "AllowLoginBackupCode2fa"
         },
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/backup_code_2fa",
+            "route" = "POST/demo/auth/{type}/backup_code_2fa",
             "state_id" = "AllowDemoLoginBackupCode2fa"
         },
 
 
         {
             name = "auth:prod",
-            "route" = "POST/auth/third_party_2fa",
+            "route" = "POST/auth/{type}/third_party_2fa",
             "state_id" = "AllowLoginThirdParty2fa"
         },
 
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/third_party_2fa",
+            "route" = "POST/demo/auth/{type}/third_party_2fa",
             "state_id" = "AllowDemoLoginThirdParty2fa"
         },
 
@@ -1342,13 +1366,13 @@ variable "lambda_permissions" {
         },
         {
             name = "auth:prod",
-            "route" = "POST/auth/mobile_2fa",
+            "route" = "POST/auth/{type}/mobile_2fa",
             "state_id" = "AllowProdMobile2faLog"
         },
 
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/mobile_2fa",
+            "route" = "POST/demo/auth/{type}/mobile_2fa",
             "state_id" = "AllowDemoMobile2faLog"
         },
 
