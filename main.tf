@@ -592,6 +592,7 @@ module "api_gateway" {
         timeout_milliseconds   = 12000
       }
     }
+
     "POST /demo/nlp" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "nlp:demo")
@@ -601,6 +602,14 @@ module "api_gateway" {
     }
 
     "POST /dev/nlp" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "nlp")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "GET /status" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "nlp")
         payload_format_version = "2.0"
