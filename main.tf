@@ -609,7 +609,7 @@ module "api_gateway" {
       }
     }
 
-    "GET /status" = {
+    "GET /nlp/status" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "nlp")
         payload_format_version = "2.0"
@@ -2027,6 +2027,19 @@ module "api_gateway" {
       }
     }
 
+    "POST /demo/auth/delete_account" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:demo")
+        payload_format_version = "2.0"
+      }
+    }
+
+    "POST /auth/delete_account" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "auth:prod")
+        payload_format_version = "2.0"
+      }
+    }
 
     "POST /dashboard/prescription" = {
       integration = {

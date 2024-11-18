@@ -379,7 +379,7 @@ variable "lambda_permissions" {
 
         {
             name = "nlp",
-            route = "GET/status",
+            route = "GET/nlp/status",
             "state_id": "AllowNLPStatus"
         },
 
@@ -1416,6 +1416,18 @@ variable "lambda_permissions" {
             name = "auth:demo",
             "route" = "POST/demo/auth/ws/response_mobile_connection",
             "state_id" = "WebsocketDemoResponse2fa"
+        },
+
+        {
+            name = "auth:demo",
+            "route" = "POST/demo/auth/delete_account",
+            "state_id" = "DeleteaccountDemo"
+        },
+
+        {
+            name = "auth:prod",
+            "route" = "POST/demo/auth/delete_account",
+            "state_id" = "DeleteaccountProd"
         },
 
 
