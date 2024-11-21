@@ -551,7 +551,7 @@ module "api_gateway" {
       }
     }
 
-    "POST /auth/missing-password" = {
+    "POST /auth/{type}/missing-password" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -559,7 +559,7 @@ module "api_gateway" {
       }
     }
 
-    "POST /demo/auth/missing-password" = {
+    "POST /demo/auth/{type}/missing-password" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
@@ -568,7 +568,7 @@ module "api_gateway" {
     }
 
 
-    "POST /auth/reset-password" = {
+    "POST /auth/{type}/reset-password" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:prod")
         payload_format_version = "2.0"
@@ -576,7 +576,7 @@ module "api_gateway" {
       }
     }
 
-    "POST /demo/auth/reset-password" = {
+    "POST /demo/auth/{type}/reset-password" = {
       integration = {
         uri = format("%s%s", var.base_lambda_arn, "auth:demo")
         payload_format_version = "2.0"
@@ -609,9 +609,9 @@ module "api_gateway" {
       }
     }
 
-    "GET /nlp/status" = {
+    "GET /demo/nlp/status" = {
       integration = {
-        uri = format("%s%s", var.base_lambda_arn, "nlp")
+        uri = format("%s%s", var.base_lambda_arn, "nlp:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }

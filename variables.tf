@@ -230,7 +230,6 @@ variable "lambda_permissions" {
             "route" = "ANY/dev/dashboard/treatment/follow-up/{proxy+}",
             "state_id" = "AllowDevTreatmentFollowUpAnyProxy"
         },
-
         {
             name = "dashboard",
             "route" = "ANY/dev/dashboard/prescription",
@@ -341,24 +340,24 @@ variable "lambda_permissions" {
         },
         {
             name = "auth:prod",
-            "route" = "POST/auth/missing-password",
+            "route" = "POST/auth/{type}/missing-password",
             "state_id" = "AllowMissingPassword"
         },
 
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/missing-password",
+            "route" = "POST/demo/auth/{type}/missing-password",
             "state_id" = "AllowDemoMissingPassword"
         },
         {
             name = "auth:prod",
-            "route" = "POST/auth/reset-password",
+            "route" = "POST/auth/{type}/reset-password",
             "state_id" = "AllowResetPassword"
         },
 
         {
             name = "auth:demo",
-            "route" = "POST/demo/auth/reset-password",
+            "route" = "POST/demo/auth/{type}/reset-password",
             "state_id" = "AllowDemoResetPassword"
         },
         {
@@ -378,8 +377,8 @@ variable "lambda_permissions" {
         },
 
         {
-            name = "nlp",
-            route = "GET/nlp/status",
+            name = "nlp:demo",
+            route = "GET/demo/nlp/status",
             "state_id": "AllowNLPStatus"
         },
 
