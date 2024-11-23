@@ -332,7 +332,7 @@ module "api_gateway" {
 
     "ANY /demo/dashboard/medical-antecedent" = {
       integration = {
-        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }
@@ -340,7 +340,23 @@ module "api_gateway" {
 
     "ANY /demo/dashboard/medical-antecedent/{proxy+}" = {
       integration = {
-        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder")
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:demo")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "ANY /dashboard/medical-antecedent" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
+        payload_format_version = "2.0"
+        timeout_milliseconds   = 12000
+      }
+    }
+
+    "ANY /dashboard/medical-antecedent/{proxy+}" = {
+      integration = {
+        uri = format("%s%s", var.base_lambda_arn, "MedicalFolder:prod")
         payload_format_version = "2.0"
         timeout_milliseconds   = 12000
       }

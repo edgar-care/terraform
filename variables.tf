@@ -194,15 +194,27 @@ variable "lambda_permissions" {
         },
 
         {
-            name = "MedicalFolder",
+            name = "MedicalFolder:demo",
             "route" = "ANY/demo/dashboard/medical-antecedent",
             "state_id" = "AllowDemoMedicalAntecedentAnyAll"
         },
 
         {
-            name = "MedicalFolder",
+            name = "MedicalFolder:demo",
             "route" = "ANY/demo/dashboard/medical-antecedent/{proxy+}",
             "state_id" = "AllowDemoMedicalAntecedentAnyProxy"
+        },
+
+        {
+            name = "MedicalFolder:prod",
+            "route" = "ANY/dashboard/medical-antecedent",
+            "state_id" = "AllowProdMedicalAntecedentAnyAll"
+        },
+
+        {
+            name = "MedicalFolder:prod",
+            "route" = "ANY/dashboard/medical-antecedent/{proxy+}",
+            "state_id" = "AllowProdMedicalAntecedentAnyProxy"
         },
 
         {
