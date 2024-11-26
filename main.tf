@@ -21,13 +21,13 @@ provider "aws" {
   region = var.aws_region
 }
 
-module "log_group" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
-  version = "~> 3.0"
-
-  name              = "gateway"
-  retention_in_days = 120
-}
+# module "log_group" {
+#   source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
+#   version = "~> 3.0"
+#
+#   name              = "gateway"
+#   retention_in_days = 120
+# }
 
 module "api_gateway" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
@@ -47,34 +47,34 @@ module "api_gateway" {
   //create_domain_records = false
 
   # Access logs
-  stage_access_log_settings = {
-    create_log_group            = true
-    log_group_retention_in_days = 7
-    format = jsonencode({
-      context = {
-        domainName              = "$context.domainName"
-        integrationErrorMessage = "$context.integrationErrorMessage"
-        protocol                = "$context.protocol"
-        requestId               = "$context.requestId"
-        requestTime             = "$context.requestTime"
-        responseLength          = "$context.responseLength"
-        routeKey                = "$context.routeKey"
-        stage                   = "$context.stage"
-        status                  = "$context.status"
-        error = {
-          message      = "$context.error.message"
-          responseType = "$context.error.responseType"
-        }
-        identity = {
-          sourceIP = "$context.identity.sourceIp"
-        }
-        integration = {
-          error             = "$context.integration.error"
-          integrationStatus = "$context.integration.integrationStatus"
-        }
-      }
-    })
-  }
+  # stage_access_log_settings = {
+  #   create_log_group            = true
+  #   log_group_retention_in_days = 7
+  #   format = jsonencode({
+  #     context = {
+  #       domainName              = "$context.domainName"
+  #       integrationErrorMessage = "$context.integrationErrorMessage"
+  #       protocol                = "$context.protocol"
+  #       requestId               = "$context.requestId"
+  #       requestTime             = "$context.requestTime"
+  #       responseLength          = "$context.responseLength"
+  #       routeKey                = "$context.routeKey"
+  #       stage                   = "$context.stage"
+  #       status                  = "$context.status"
+  #       error = {
+  #         message      = "$context.error.message"
+  #         responseType = "$context.error.responseType"
+  #       }
+  #       identity = {
+  #         sourceIP = "$context.identity.sourceIp"
+  #       }
+  #       integration = {
+  #         error             = "$context.integration.error"
+  #         integrationStatus = "$context.integration.integrationStatus"
+  #       }
+  #     }
+  #   })
+  # }
 
 
   routes = {
@@ -2155,10 +2155,10 @@ module "api_gateway" {
     # }
 }
 
-resource "aws_cloudwatch_log_group" "api_gateway_access_log" {
-  name              = "/aws/apigateway/edgar"
-  retention_in_days = 120
-}
+# resource "aws_cloudwatch_log_group" "api_gateway_access_log" {
+#   name              = "/aws/apigateway/edgar"
+#   retention_in_days = 120
+# }
 
 
     # authorizers= {
